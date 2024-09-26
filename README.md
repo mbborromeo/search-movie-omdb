@@ -2,9 +2,10 @@
 
 REST API call to OMDB
 
-There will be README files in each of the folders:
+This is a Full-Stack project, so there is a client folder and server folder:
 
-- search-movie-ui
-- search-movie-backend
+- search-movie-ui (built in React)
+- search-movie-backend (built in Node.js)
 
-You need to run `npm install` and `npm start` in both folders.
+You need to run `npm install` and `npm start` from inside both folders.
+There are README.md files in both folders for more detail.

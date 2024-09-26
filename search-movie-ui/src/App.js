@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-import testMovie from './braveheart.json';
+import testMovie from "./braveheart.json";
 
 function App() {
   const [title, setTitle] = useState("");
@@ -37,3 +37,4 @@ function App() {
 }
 
 export default App;
+
