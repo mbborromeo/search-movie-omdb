@@ -46,10 +46,6 @@ function App() {
         />
         <button type="submit">Search Movie</button>
 
-        {/* <div className="message">
-          {message ? <p>Message: {message}</p> : null}
-        </div> */}
-
         {finishedLoading && data && data.Response === "True" && (
           <div className="presentation">
             <h1>{data.Title}</h1>
@@ -60,7 +56,7 @@ function App() {
           </div>
         )}
         {finishedLoading && data && data.Response === "False" && (
-          <div>{message && <p>Message: {message}</p>}</div>
+          <div className="message">{message && <p>Message: {message}</p>}</div>
         )}
       </form>
     </div>
