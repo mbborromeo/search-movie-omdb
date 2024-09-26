@@ -4,25 +4,34 @@ import { useState } from "react";
 
 function App() {
   const [title, setTitle] = useState("");
+  const [data, setData] = useState({});
   const [message, setMessage] = useState("");
+  const [finishedLoading, setFinishedLoading] = useState(false);
 
   let handleSubmit = async (e) => {
     e.preventDefault();
+    // reset title
     setTitle("");
-    setMessage(`Searching for movie [${title}]`);
-    try {
-      // Connect with the relevant backend for live data.
-      fetch(`http://localhost:4000/searchMovie?title=${title}`)
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-          setMessage(JSON.stringify(data));
-        });
-    } catch (err) {
-      setMessage(`Error: [${err}]`);
-      console.log(err);
+
+    // Check there is a search string before submitting
+    if (title) {
+      setMessage(`Searching for movie [${title}]`);
+      try {
+        // Connect with the relevant backend for live data.
+        fetch(`http://localhost:4000/searchMovie?title=${title}`)
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            console.log("data", data);
+            setData(data);
+            setMessage(JSON.stringify(data));
+            setFinishedLoading(true);
+          });
+      } catch (err) {
+        setMessage(`Error: [${err}]`);
+        console.log(err);
+      }
     }
   };
 
@@ -37,11 +46,25 @@ function App() {
         />
         <button type="submit">Search Movie</button>
 
-        <div className="message">{message ? <p>{message}</p> : null}</div>
+        {/* <div className="message">
+          {message ? <p>Message: {message}</p> : null}
+        </div> */}
+
+        {finishedLoading && data && data.Response === "True" && (
+          <div className="presentation">
+            <h1>{data.Title}</h1>
+            <span>{data.Year}</span>
+            {data.Poster && (
+              <img src={data.Poster} alt={`Poster of ${data.Title}`} />
+            )}
+          </div>
+        )}
+        {finishedLoading && data && data.Response === "False" && (
+          <div>{message && <p>Message: {message}</p>}</div>
+        )}
       </form>
     </div>
   );
 }
 
 export default App;
-
