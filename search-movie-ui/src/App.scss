@@ -1,3 +1,7 @@
+/* Variables */
+$breakpoint-tablet: 768px;
+
+/* Global Styles */
 .App {
   display: flex;
   justify-content: center;
@@ -19,10 +23,12 @@ button {
   font-size: 1.2em;
   border-radius: 0.2rem;
   cursor: pointer;
+
+  &:hover {
+    background-color: #c5c5c5;
+  }
 }
-button:hover {
-  background-color: #c5c5c5;
-}
+
 .message {
   font-size: 1.2em;
   text-align: center;
@@ -31,4 +37,39 @@ button:hover {
 
 .presentation {
   border: 1px solid blue;
+}
+
+.inline-list {
+  border: 1px solid green;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+
+.row {
+  border: 1px solid pink;
+  display: flex;
+  flex-direction: column;
+
+  &.row-2 {
+    @media only screen and (min-width: $breakpoint-tablet) {
+      flex-direction: row;
+    }
+  }
+}
+
+.column {
+  border: 1px solid yellow;
+  width: 100%;
+
+  img#poster {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: $breakpoint-tablet) {
+    width: 50%;
+  }
 }
