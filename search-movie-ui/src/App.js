@@ -107,6 +107,9 @@ function App() {
                   <div>
                     IMDB Rating: {data.imdbRating}/10 (votes: {data.imdbVotes})
                   </div>
+                  <br />
+
+                  {data.Awards && <div>Awards: {data.Awards}</div>}
                 </div>
               </div>
             </>
