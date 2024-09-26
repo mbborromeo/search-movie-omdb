@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import { useState } from "react";
 // import testMovie from "./braveheart.json";
 
@@ -42,6 +42,10 @@ function App() {
     }
   };
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
@@ -66,11 +70,42 @@ function App() {
 
           {!loading && data && data.Response === "True" && (
             <>
-              <h1>{data.Title}</h1>
-              <span>{data.Year}</span>
-              {data.Poster && (
-                <img src={data.Poster} alt={`Poster of ${data.Title}`} />
-              )}
+              <div className="row row-1">
+                <h1>{data.Title}</h1>
+                <ul className="inline-list">
+                  {data.Type !== "movie" && (
+                    <li>{capitalizeFirstLetter(data.Type)}</li>
+                  )}
+                  <li>{data.Year}</li>
+                  <li>{data.Rated}</li>
+                  <li>{data.Runtime}</li>
+                </ul>
+                <div>{data.Genre}</div>
+                <div>
+                  {data.imdbRating}/10 IMDB Rating (votes: {data.imdbVotes})
+                </div>
+              </div>
+
+              <div className="row row-2">
+                <div className="column">
+                  <img
+                    id="poster"
+                    src={data.Poster}
+                    alt={`Poster of ${data.Title}`}
+                  />
+                </div>
+
+                <div className="column">
+                  <p>{data.Plot}</p>
+                  {data.Director !== "N/A" && (
+                    <div>Director: {data.Director}</div>
+                  )}
+                  {data.Writer !== "N/A" && <div>Writer: {data.Writer}</div>}
+                  <div>Actors: {data.Actors}</div>
+                  <br />
+                  <div>Language: {data.Language}</div>
+                </div>
+              </div>
             </>
           )}
         </div>

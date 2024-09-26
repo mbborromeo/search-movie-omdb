@@ -1,0 +1,75 @@
+/* Variables */
+$breakpoint-tablet: 768px;
+
+/* Global Styles */
+.App {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+}
+input {
+  display: block;
+  width: 20rem;
+  height: 2rem;
+  padding: 0.5rem;
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+button {
+  border: none;
+  padding: 1rem;
+  width: 21.2rem;
+  font-size: 1.2em;
+  border-radius: 0.2rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #c5c5c5;
+  }
+}
+
+.message {
+  font-size: 1.2em;
+  text-align: center;
+  color: #36a936;
+}
+
+.presentation {
+  border: 1px solid blue;
+}
+
+.inline-list {
+  border: 1px solid green;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+
+.row {
+  border: 1px solid pink;
+  display: flex;
+  flex-direction: column;
+
+  &.row-2 {
+    @media only screen and (min-width: $breakpoint-tablet) {
+      flex-direction: row;
+    }
+  }
+}
+
+.column {
+  border: 1px solid yellow;
+  width: 100%;
+
+  img#poster {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: $breakpoint-tablet) {
+    width: 50%;
+  }
+}
