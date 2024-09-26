@@ -80,10 +80,6 @@ function App() {
                   <li>{data.Rated}</li>
                   <li>{data.Runtime}</li>
                 </ul>
-                <div>{data.Genre}</div>
-                <div>
-                  {data.imdbRating}/10 IMDB Rating (votes: {data.imdbVotes})
-                </div>
               </div>
 
               <div className="row row-2">
@@ -96,6 +92,7 @@ function App() {
                 </div>
 
                 <div className="column">
+                  <div>Genre: {data.Genre}</div>
                   <p>{data.Plot}</p>
                   {data.Director !== "N/A" && (
                     <div>Director: {data.Director}</div>
@@ -103,7 +100,13 @@ function App() {
                   {data.Writer !== "N/A" && <div>Writer: {data.Writer}</div>}
                   <div>Actors: {data.Actors}</div>
                   <br />
+
                   <div>Language: {data.Language}</div>
+                  <br />
+
+                  <div>
+                    IMDB Rating: {data.imdbRating}/10 (votes: {data.imdbVotes})
+                  </div>
                 </div>
               </div>
             </>
