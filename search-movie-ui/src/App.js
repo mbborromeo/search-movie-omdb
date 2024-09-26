@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-import testMovie from "./braveheart.json";
+// import testMovie from "./braveheart.json";
 
 function App() {
   const [title, setTitle] = useState("");
@@ -11,8 +11,15 @@ function App() {
     setTitle("");
     setMessage(`Searching for movie [${title}]`);
     try {
-      //FIXME: Using mock file. Connect with the relevant backend for live data.
-      setMessage(JSON.stringify(testMovie));
+      // Connect with the relevant backend for live data.
+      fetch(`http://localhost:4000/searchMovie?title=${title}`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setMessage(JSON.stringify(data));
+        });
     } catch (err) {
       setMessage(`Error: [${err}]`);
       console.log(err);
