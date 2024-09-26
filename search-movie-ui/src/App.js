@@ -10,15 +10,13 @@ function App() {
 
   let handleSubmit = async (e) => {
     e.preventDefault();
-    // reset title
-    setTitle("");
+
+    // clean up string
+    const titleNoSpaces = title.trim().replaceAll(" ", "+");
 
     // Check there is a search string before submitting
-    if (title) {
+    if (titleNoSpaces) {
       setMessage(`Searching for movie [${title}]`);
-
-      // clean up string
-      const titleNoSpaces = title.trim().replaceAll(" ", "+");
 
       try {
         // Connect with the relevant backend for live data.
@@ -31,6 +29,8 @@ function App() {
             setData(data);
             setMessage(JSON.stringify(data));
             setFinishedLoading(true);
+            // reset title
+            setTitle("");
           });
       } catch (err) {
         setMessage(`Error: [${err}]`);
