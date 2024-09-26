@@ -16,9 +16,13 @@ function App() {
     // Check there is a search string before submitting
     if (title) {
       setMessage(`Searching for movie [${title}]`);
+
+      // clean up string
+      const titleNoSpaces = title.trim().replaceAll(" ", "+");
+
       try {
         // Connect with the relevant backend for live data.
-        fetch(`http://localhost:4000/searchMovie?title=${title}`)
+        fetch(`http://localhost:4000/searchMovie?title=${titleNoSpaces}`)
           .then((res) => {
             return res.json();
           })
