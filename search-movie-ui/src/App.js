@@ -42,9 +42,20 @@ function App() {
     }
   };
 
-  function capitalizeFirstLetter(string) {
+  const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  };
+
+  const createGenreTags = (genreString) => {
+    const genreArray = genreString.split(", ");
+    console.log("genreArray", genreArray);
+
+    return genreArray.map((genre) => (
+      <span key={genre} className="pill">
+        {genre}
+      </span>
+    ));
+  };
 
   return (
     <div className="App">
@@ -94,7 +105,9 @@ function App() {
               </div>
 
               <div className="column">
-                <div>Genre: {data.Genre}</div>
+                <div className="pills-container">
+                  {createGenreTags(data.Genre)}
+                </div>
                 {data.Plot !== "N/A" && <p>{data.Plot}</p>}
                 {data.Director !== "N/A" && (
                   <div>Director: {data.Director}</div>

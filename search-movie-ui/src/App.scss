@@ -118,5 +118,15 @@ button {
       width: auto;
     }
   }
+}
 
+.pills-container {
+  display: flex;
+}
+
+.pill {
+  border: 1px solid black;
+  border-radius: 16px;
+  padding: 3px 10px;
+  margin: .25rem .5rem .25rem 0;
 }
