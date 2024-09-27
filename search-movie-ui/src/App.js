@@ -1,5 +1,7 @@
 import "./App.scss";
-import { useState } from "react";
+import { useState, Suspense } from "react";
+
+import loadingImage from "./images/loading.gif";
 
 function App() {
   const [title, setTitle] = useState("");
@@ -106,11 +108,17 @@ function App() {
             <div className="row row-2">
               <div className="column col-1">
                 {data.Poster !== "N/A" && (
+                  // <Suspense
+                  //   fallback={
+                  //     <img src={loadingImage} width="64" height="64" alt="loading" />
+                  //   }
+                  // >
                   <img
                     id="poster"
                     src={data.Poster}
                     alt={`Poster of ${data.Title}`}
                   />
+                  // </Suspense>
                 )}
               </div>
 
