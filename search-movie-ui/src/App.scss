@@ -83,6 +83,7 @@ hr {
 
 .inline-list {
   padding: 0;
+  font-size: 15px;
 
   li {
     display: inline-block;
@@ -134,6 +135,12 @@ hr {
   }
 
   &.col-2 {
+
+    p {
+      font-size: 17px;
+      margin-bottom: 22px;
+    }
+
     @media only screen and (min-width: $breakpoint-tablet) {
       padding-left: 22px;
     }
@@ -157,4 +164,9 @@ hr {
   border-radius: 16px;
   padding: 3px 10px;
   margin: .25rem .5rem .25rem 0;
+  font-size: 15px;
+}
+
+.field {
+  font-weight: bold;
 }
