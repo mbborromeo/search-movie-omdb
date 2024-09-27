@@ -91,6 +91,7 @@ function App() {
                 {data.Rated !== "N/A" && <li>{data.Rated}</li>}
                 {data.Runtime !== "N/A" && <li>{data.Runtime}</li>}
               </ul>
+              <hr />
             </div>
 
             <div className="row row-2">
@@ -104,7 +105,7 @@ function App() {
                 )}
               </div>
 
-              <div className="column">
+              <div className="column col-2">
                 <div className="pills-container">
                   {createGenreTags(data.Genre)}
                 </div>
