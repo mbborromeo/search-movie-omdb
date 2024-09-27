@@ -48,10 +48,11 @@ function App() {
   const formatVotes = (numberString) => {
     const numStringWithoutCommas = numberString.replaceAll(",", "");
 
+    // .toFixed(1)
     return numStringWithoutCommas >= 1000 && numStringWithoutCommas < 1000000
-      ? `${(numStringWithoutCommas / 1000).toFixed(1)}K`
+      ? `${Math.floor(numStringWithoutCommas / 1000)}K`
       : numStringWithoutCommas >= 1000000
-      ? `${(numStringWithoutCommas / 1000000).toFixed(1)}M`
+      ? `${Math.floor(numStringWithoutCommas / 1000000)}M`
       : numberString;
   };
 
