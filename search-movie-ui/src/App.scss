@@ -58,6 +58,11 @@ button {
 
 .presentation {
   border: 1px solid blue;
+  width: 94%;
+
+  @media only screen and (min-width: $breakpoint-tablet) {
+    width: 70%;
+  }
 }
 
 .inline-list {
@@ -93,6 +98,8 @@ button {
   flex-direction: column;
 
   &.row-2 {
+    margin-bottom: 20px;
+
     @media only screen and (min-width: $breakpoint-tablet) {
       flex-direction: row;
     }
