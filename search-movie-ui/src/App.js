@@ -42,9 +42,20 @@ function App() {
     }
   };
 
-  function capitalizeFirstLetter(string) {
+  const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  };
+
+  const createGenreTags = (genreString) => {
+    const genreArray = genreString.split(", ");
+    console.log("genreArray", genreArray);
+
+    return genreArray.map((genre) => (
+      <span key={genre} className="pill">
+        {genre}
+      </span>
+    ));
+  };
 
   return (
     <div className="App">
@@ -56,63 +67,76 @@ function App() {
           onChange={(e) => setTitle(e.target.value)}
         />
         <button type="submit">Search Movie</button>
-        <br />
-        <br />
+      </form>
 
-        <div className="presentation">
-          {loading && <span>{message}</span>}
+      <br />
+      <br />
 
-          {!loading && data && data.Response === "False" && (
-            <div className="message">
-              {message && <p>Message: {message}</p>}
+      <div className="presentation">
+        {loading && <span>{message}</span>}
+
+        {!loading && data && data.Response === "False" && (
+          <div className="message">{message && <p>Message: {message}</p>}</div>
+        )}
+
+        {!loading && data && data.Response === "True" && (
+          <>
+            <div className="row row-1">
+              <h1>{data.Title}</h1>
+              <ul className="inline-list">
+                {data.Type !== "movie" && (
+                  <li>{capitalizeFirstLetter(data.Type)}</li>
+                )}
+                <li>{data.Year}</li>
+                {data.Rated !== "N/A" && <li>{data.Rated}</li>}
+                {data.Runtime !== "N/A" && <li>{data.Runtime}</li>}
+              </ul>
             </div>
-          )}
 
-          {!loading && data && data.Response === "True" && (
-            <>
-              <div className="row row-1">
-                <h1>{data.Title}</h1>
-                <ul className="inline-list">
-                  {data.Type !== "movie" && (
-                    <li>{capitalizeFirstLetter(data.Type)}</li>
-                  )}
-                  <li>{data.Year}</li>
-                  <li>{data.Rated}</li>
-                  <li>{data.Runtime}</li>
-                </ul>
-              </div>
-
-              <div className="row row-2">
-                <div className="column">
+            <div className="row row-2">
+              <div className="column col-1">
+                {data.Poster !== "N/A" && (
                   <img
                     id="poster"
                     src={data.Poster}
                     alt={`Poster of ${data.Title}`}
                   />
-                </div>
-
-                <div className="column">
-                  <div>Genre: {data.Genre}</div>
-                  <p>{data.Plot}</p>
-                  {data.Director !== "N/A" && (
-                    <div>Director: {data.Director}</div>
-                  )}
-                  {data.Writer !== "N/A" && <div>Writer: {data.Writer}</div>}
-                  <div>Actors: {data.Actors}</div>
-                  <br />
-
-                  <div>Language: {data.Language}</div>
-                  <br />
-
-                  <div>
-                    IMDB Rating: {data.imdbRating}/10 (votes: {data.imdbVotes})
-                  </div>
-                </div>
+                )}
               </div>
-            </>
-          )}
-        </div>
-      </form>
+
+              <div className="column">
+                <div className="pills-container">
+                  {createGenreTags(data.Genre)}
+                </div>
+                {data.Plot !== "N/A" && <p>{data.Plot}</p>}
+                {data.Director !== "N/A" && (
+                  <div>Director: {data.Director}</div>
+                )}
+                {data.Writer !== "N/A" && <div>Writer: {data.Writer}</div>}
+                <div>Actors: {data.Actors}</div>
+                <br />
+
+                {data.Language !== "N/A" && (
+                  <div>Language: {data.Language}</div>
+                )}
+                <br />
+
+                <div>
+                  {data.imdbRating !== "N/A" && (
+                    <span>IMDB Rating: {data.imdbRating}/10</span>
+                  )}
+                  {data.imdbVotes !== "N/A" && (
+                    <span> (votes: {data.imdbVotes})</span>
+                  )}
+                </div>
+                <br />
+
+                {data.Awards !== "N/A" && <div>Awards: {data.Awards}</div>}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
