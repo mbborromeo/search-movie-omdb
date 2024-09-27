@@ -1,6 +1,5 @@
 import "./App.scss";
 import { useState } from "react";
-// import testMovie from "./braveheart.json";
 
 function App() {
   const [title, setTitle] = useState("");
@@ -44,6 +43,13 @@ function App() {
 
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  const formatVotes = (numberString) => {
+    const numStringWithoutCommas = numberString.replaceAll(",", "");
+    return numStringWithoutCommas >= 1000
+      ? `${(numStringWithoutCommas / 1000).toFixed(1)}K`
+      : numberString;
   };
 
   const createGenreTags = (genreString) => {
@@ -140,7 +146,9 @@ function App() {
                     </>
                   )}
                   {data.imdbVotes !== "N/A" && (
-                    <span> (votes: {data.imdbVotes})</span>
+                    <span className="votes">
+                      ({formatVotes(data.imdbVotes)} votes)
+                    </span>
                   )}
                 </div>
                 <br />
