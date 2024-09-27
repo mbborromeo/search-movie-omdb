@@ -1,6 +1,8 @@
 /* Variables */
 $breakpoint-tablet: 768px;
 $full-width: 94%;
+$image-width-desktop: 300px;
+$image-height-desktop: 447px;
 
 /* Global Styles */
 .App {
@@ -125,19 +127,20 @@ hr {
   width: auto;
 
   &.col-1 {
+    // background-color: grey;
     margin-bottom: 7px;
 
-    @media only screen and (min-width: $breakpoint-tablet) {
-      /* placeholder for image */
-      width: 300px;
-      min-height: 447px;
-    }
+    /* placeholder for image */
+    min-height: $image-height-desktop;
+
+    // @media only screen and (min-width: $breakpoint-tablet) {
+    // }
   }
 
   &.col-2 {
-
     p {
       font-size: 17px;
+      margin-top: 14px;
       margin-bottom: 22px;
     }
 
@@ -148,22 +151,24 @@ hr {
 
   img#poster {
     width: 100%;
+    height: auto;
 
     @media only screen and (min-width: $breakpoint-tablet) {
-      width: auto;
+      width: $image-width-desktop; /* hardcoded so layout doesn't shift while image is loading */
     }
   }
 }
 
 .pills-container {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .pill {
   border: 1px solid black;
   border-radius: 16px;
   padding: 3px 10px;
-  margin: .25rem .5rem .25rem 0;
+  margin: .25rem .5rem .2rem 0;
   font-size: 15px;
 }
 
