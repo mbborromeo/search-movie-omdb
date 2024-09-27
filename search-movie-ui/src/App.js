@@ -28,13 +28,13 @@ function App() {
             return res.json();
           })
           .then((data) => {
+            // no results found
             if (data.Response === "False") {
               setMessage(`Results for "${title}": ${data.Error}`);
             }
 
             // success
             setData(data);
-            // setMessage(JSON.stringify(data));
 
             // reset title
             setTitle("");
