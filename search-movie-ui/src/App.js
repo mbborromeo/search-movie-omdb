@@ -126,30 +126,34 @@ function App() {
                 <div className="pills-container">
                   {createGenreTags(data.Genre)}
                 </div>
+
                 {data.Plot !== "N/A" && <p>{data.Plot}</p>}
+
                 {data.Director !== "N/A" && (
-                  <div>
+                  <div className="field-value">
                     <span className="field">Director:</span> {data.Director}
                   </div>
                 )}
+
                 {data.Writer !== "N/A" && (
-                  <div>
+                  <div className="field-value">
                     <span className="field">Writer:</span> {data.Writer}
                   </div>
                 )}
-                <div>
-                  <span className="field">Actors:</span> {data.Actors}
-                </div>
-                <br />
+
+                {data.Actors !== "N/A" && (
+                  <div className="field-value">
+                    <span className="field">Actors:</span> {data.Actors}
+                  </div>
+                )}
 
                 {data.Language !== "N/A" && (
-                  <div>
+                  <div className="field-value">
                     <span className="field">Language:</span> {data.Language}
                   </div>
                 )}
-                <br />
 
-                <div>
+                <div className="field-value">
                   {data.imdbRating !== "N/A" && (
                     <>
                       <span className="field">IMDB Rating:</span>{" "}
@@ -162,10 +166,9 @@ function App() {
                     </span>
                   )}
                 </div>
-                <br />
 
                 {data.Awards !== "N/A" && (
-                  <div>
+                  <div className="field-value">
                     <span className="field">Awards:</span> {data.Awards}
                   </div>
                 )}
