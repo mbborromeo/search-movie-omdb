@@ -140,7 +140,7 @@ hr {
   &.col-2 {
     p {
       font-size: 17px;
-      margin-top: 14px;
+      margin-top: 0;
       margin-bottom: 22px;
     }
 
@@ -162,6 +162,7 @@ hr {
 .pills-container {
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 12px;
 }
 
 .pill {
@@ -170,6 +171,10 @@ hr {
   padding: 3px 10px;
   margin: .25rem .5rem .2rem 0;
   font-size: 15px;
+}
+
+.field-value {
+  margin-bottom: 18px;
 }
 
 .field {
