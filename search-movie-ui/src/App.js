@@ -91,6 +91,7 @@ function App() {
                 {data.Rated !== "N/A" && <li>{data.Rated}</li>}
                 {data.Runtime !== "N/A" && <li>{data.Runtime}</li>}
               </ul>
+              <hr />
             </div>
 
             <div className="row row-2">
@@ -104,26 +105,39 @@ function App() {
                 )}
               </div>
 
-              <div className="column">
+              <div className="column col-2">
                 <div className="pills-container">
                   {createGenreTags(data.Genre)}
                 </div>
                 {data.Plot !== "N/A" && <p>{data.Plot}</p>}
                 {data.Director !== "N/A" && (
-                  <div>Director: {data.Director}</div>
+                  <div>
+                    <span className="field">Director:</span> {data.Director}
+                  </div>
                 )}
-                {data.Writer !== "N/A" && <div>Writer: {data.Writer}</div>}
-                <div>Actors: {data.Actors}</div>
+                {data.Writer !== "N/A" && (
+                  <div>
+                    <span className="field">Writer:</span> {data.Writer}
+                  </div>
+                )}
+                <div>
+                  <span className="field">Actors:</span> {data.Actors}
+                </div>
                 <br />
 
                 {data.Language !== "N/A" && (
-                  <div>Language: {data.Language}</div>
+                  <div>
+                    <span className="field">Language:</span> {data.Language}
+                  </div>
                 )}
                 <br />
 
                 <div>
                   {data.imdbRating !== "N/A" && (
-                    <span>IMDB Rating: {data.imdbRating}/10</span>
+                    <>
+                      <span className="field">IMDB Rating:</span>{" "}
+                      {data.imdbRating}/10
+                    </>
                   )}
                   {data.imdbVotes !== "N/A" && (
                     <span> (votes: {data.imdbVotes})</span>
@@ -131,7 +145,11 @@ function App() {
                 </div>
                 <br />
 
-                {data.Awards !== "N/A" && <div>Awards: {data.Awards}</div>}
+                {data.Awards !== "N/A" && (
+                  <div>
+                    <span className="field">Awards:</span> {data.Awards}
+                  </div>
+                )}
               </div>
             </div>
           </>
