@@ -103,6 +103,14 @@ button {
   border: 1px solid yellow;
   width: auto;
 
+  &.col-1 {
+    @media only screen and (min-width: $breakpoint-tablet) {
+      /* placeholder for image */
+      width: 300px;
+      min-height: 447px;
+    }
+  }
+
   img#poster {
     width: 100%;
 

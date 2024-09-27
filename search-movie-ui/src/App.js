@@ -77,23 +77,25 @@ function App() {
                   <li>{capitalizeFirstLetter(data.Type)}</li>
                 )}
                 <li>{data.Year}</li>
-                <li>{data.Rated}</li>
-                <li>{data.Runtime}</li>
+                {data.Rated !== "N/A" && <li>{data.Rated}</li>}
+                {data.Runtime !== "N/A" && <li>{data.Runtime}</li>}
               </ul>
             </div>
 
             <div className="row row-2">
-              <div className="column">
-                <img
-                  id="poster"
-                  src={data.Poster}
-                  alt={`Poster of ${data.Title}`}
-                />
+              <div className="column col-1">
+                {data.Poster !== "N/A" && (
+                  <img
+                    id="poster"
+                    src={data.Poster}
+                    alt={`Poster of ${data.Title}`}
+                  />
+                )}
               </div>
 
               <div className="column">
                 <div>Genre: {data.Genre}</div>
-                <p>{data.Plot}</p>
+                {data.Plot !== "N/A" && <p>{data.Plot}</p>}
                 {data.Director !== "N/A" && (
                   <div>Director: {data.Director}</div>
                 )}
@@ -101,15 +103,22 @@ function App() {
                 <div>Actors: {data.Actors}</div>
                 <br />
 
-                <div>Language: {data.Language}</div>
+                {data.Language !== "N/A" && (
+                  <div>Language: {data.Language}</div>
+                )}
                 <br />
 
                 <div>
-                  IMDB Rating: {data.imdbRating}/10 (votes: {data.imdbVotes})
+                  {data.imdbRating !== "N/A" && (
+                    <span>IMDB Rating: {data.imdbRating}/10</span>
+                  )}
+                  {data.imdbVotes !== "N/A" && (
+                    <span> (votes: {data.imdbVotes})</span>
+                  )}
                 </div>
                 <br />
 
-                {data.Awards && <div>Awards: {data.Awards}</div>}
+                {data.Awards !== "N/A" && <div>Awards: {data.Awards}</div>}
               </div>
             </div>
           </>
