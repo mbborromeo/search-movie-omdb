@@ -5,6 +5,7 @@ import loadingImage from "./images/loading.gif";
 
 function App() {
   const [title, setTitle] = useState("");
+  const [previousSearch, setPreviousSearch] = useState("");
   const [data, setData] = useState({});
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,7 +17,7 @@ function App() {
     const titleNoSpaces = title.trim().replaceAll(" ", "+");
 
     // check there is a valid search before submitting
-    if (titleNoSpaces) {
+    if (titleNoSpaces && titleNoSpaces !== previousSearch) {
       setMessage(`Searching for movie "${title}"...`);
       setData({});
       setLoading(true);
@@ -33,10 +34,10 @@ function App() {
               setMessage(`Results for "${title}": ${data.Error}`);
             }
 
-            // success
             setData(data);
 
-            // reset title
+            // store previous search and reset title
+            setPreviousSearch(title);
             setTitle("");
             setLoading(false);
           });
