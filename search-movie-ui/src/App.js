@@ -15,7 +15,7 @@ function App() {
 
     // Check there is a search string before submitting
     if (titleNoSpaces) {
-      setMessage(`Searching for movie [${title}]`);
+      setMessage(`Searching for movie "${title}"`);
       setData({});
       setLoading(true);
 
@@ -26,7 +26,6 @@ function App() {
             return res.json();
           })
           .then((data) => {
-            console.log("data", data);
             setData(data);
             setMessage(JSON.stringify(data));
 
@@ -35,7 +34,7 @@ function App() {
             setLoading(false);
           });
       } catch (err) {
-        setMessage(`Error: [${err}]`);
+        setMessage(`Error: "${err}"`);
         console.log(err);
       }
     }
@@ -48,7 +47,6 @@ function App() {
   const formatVotes = (numberString) => {
     const numStringWithoutCommas = numberString.replaceAll(",", "");
 
-    // .toFixed(1)
     return numStringWithoutCommas >= 1000 && numStringWithoutCommas < 1000000
       ? `${Math.floor(numStringWithoutCommas / 1000)}K`
       : numStringWithoutCommas >= 1000000
@@ -58,7 +56,6 @@ function App() {
 
   const createGenreTags = (genreString) => {
     const genreArray = genreString.split(", ");
-    console.log("genreArray", genreArray);
 
     return genreArray.map((genre) => (
       <span key={genre} className="pill">
@@ -86,7 +83,9 @@ function App() {
         {loading && <span>{message}</span>}
 
         {!loading && data && data.Response === "False" && (
-          <div className="message">{message && <p>Message: {message}</p>}</div>
+          <div className="message">
+            {message && <p>Result: {data.Error}</p>}
+          </div>
         )}
 
         {!loading && data && data.Response === "True" && (
