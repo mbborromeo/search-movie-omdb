@@ -15,9 +15,9 @@ function App() {
     // clean up string
     const titleNoSpaces = title.trim().replaceAll(" ", "+");
 
-    // Check there is a search string before submitting
+    // check there is a valid search before submitting
     if (titleNoSpaces) {
-      setMessage(`Searching for movie "${title}"`);
+      setMessage(`Searching for movie "${title}"...`);
       setData({});
       setLoading(true);
 
@@ -28,8 +28,13 @@ function App() {
             return res.json();
           })
           .then((data) => {
+            if (data.Response === "False") {
+              setMessage(`Results for "${title}": ${data.Error}`);
+            }
+
+            // success
             setData(data);
-            setMessage(JSON.stringify(data));
+            // setMessage(JSON.stringify(data));
 
             // reset title
             setTitle("");
@@ -82,13 +87,17 @@ function App() {
       <br />
 
       <div className="presentation">
-        {loading && <span>{message}</span>}
+        <div className="message">
+          {loading && (
+            <>
+              <p>{message}</p>
+              <br />
+              <img src={loadingImage} width="128" height="128" alt="loading" />
+            </>
+          )}
 
-        {!loading && data && data.Response === "False" && (
-          <div className="message">
-            {message && <p>Result: {data.Error}</p>}
-          </div>
-        )}
+          {!loading && data && data.Response === "False" && <p>{message}</p>}
+        </div>
 
         {!loading && data && data.Response === "True" && (
           <>
