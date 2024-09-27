@@ -56,66 +56,65 @@ function App() {
           onChange={(e) => setTitle(e.target.value)}
         />
         <button type="submit">Search Movie</button>
-        <br />
-        <br />
-
-        <div className="presentation">
-          {loading && <span>{message}</span>}
-
-          {!loading && data && data.Response === "False" && (
-            <div className="message">
-              {message && <p>Message: {message}</p>}
-            </div>
-          )}
-
-          {!loading && data && data.Response === "True" && (
-            <>
-              <div className="row row-1">
-                <h1>{data.Title}</h1>
-                <ul className="inline-list">
-                  {data.Type !== "movie" && (
-                    <li>{capitalizeFirstLetter(data.Type)}</li>
-                  )}
-                  <li>{data.Year}</li>
-                  <li>{data.Rated}</li>
-                  <li>{data.Runtime}</li>
-                </ul>
-              </div>
-
-              <div className="row row-2">
-                <div className="column">
-                  <img
-                    id="poster"
-                    src={data.Poster}
-                    alt={`Poster of ${data.Title}`}
-                  />
-                </div>
-
-                <div className="column">
-                  <div>Genre: {data.Genre}</div>
-                  <p>{data.Plot}</p>
-                  {data.Director !== "N/A" && (
-                    <div>Director: {data.Director}</div>
-                  )}
-                  {data.Writer !== "N/A" && <div>Writer: {data.Writer}</div>}
-                  <div>Actors: {data.Actors}</div>
-                  <br />
-
-                  <div>Language: {data.Language}</div>
-                  <br />
-
-                  <div>
-                    IMDB Rating: {data.imdbRating}/10 (votes: {data.imdbVotes})
-                  </div>
-                  <br />
-
-                  {data.Awards && <div>Awards: {data.Awards}</div>}
-                </div>
-              </div>
-            </>
-          )}
-        </div>
       </form>
+
+      <br />
+      <br />
+
+      <div className="presentation">
+        {loading && <span>{message}</span>}
+
+        {!loading && data && data.Response === "False" && (
+          <div className="message">{message && <p>Message: {message}</p>}</div>
+        )}
+
+        {!loading && data && data.Response === "True" && (
+          <>
+            <div className="row row-1">
+              <h1>{data.Title}</h1>
+              <ul className="inline-list">
+                {data.Type !== "movie" && (
+                  <li>{capitalizeFirstLetter(data.Type)}</li>
+                )}
+                <li>{data.Year}</li>
+                <li>{data.Rated}</li>
+                <li>{data.Runtime}</li>
+              </ul>
+            </div>
+
+            <div className="row row-2">
+              <div className="column">
+                <img
+                  id="poster"
+                  src={data.Poster}
+                  alt={`Poster of ${data.Title}`}
+                />
+              </div>
+
+              <div className="column">
+                <div>Genre: {data.Genre}</div>
+                <p>{data.Plot}</p>
+                {data.Director !== "N/A" && (
+                  <div>Director: {data.Director}</div>
+                )}
+                {data.Writer !== "N/A" && <div>Writer: {data.Writer}</div>}
+                <div>Actors: {data.Actors}</div>
+                <br />
+
+                <div>Language: {data.Language}</div>
+                <br />
+
+                <div>
+                  IMDB Rating: {data.imdbRating}/10 (votes: {data.imdbVotes})
+                </div>
+                <br />
+
+                {data.Awards && <div>Awards: {data.Awards}</div>}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
