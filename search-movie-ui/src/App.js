@@ -79,13 +79,13 @@ function App() {
     return arrayOfItems;
   };
 
-  // const createGenreTags = (arr) => {
-  //   return arr.map((item) => (
-  //     <span key={item} className="pill">
-  //       {item}
-  //     </span>
-  //   ));
-  // };
+  const generateListItemsWithClass = (arr, classname) => {
+    return arr.map((item) => (
+      <li key={item} className={classname ? classname : ""}>
+        {item}
+      </li>
+    ));
+  };
 
   return (
     <div className="App">
@@ -145,11 +145,10 @@ function App() {
               <div className="column col-2">
                 {hasData(data.Genre) && (
                   <ul className="pills-container">
-                    {stringToArray(data.Genre).map((genre) => (
-                      <li key={genre} className="pill">
-                        {genre}
-                      </li>
-                    ))}
+                    {generateListItemsWithClass(
+                      stringToArray(data.Genre),
+                      "pill"
+                    )}
                   </ul>
                 )}
 
@@ -159,9 +158,7 @@ function App() {
                   <div className="field-value">
                     <span className="field">Director:</span>
                     <ul className="inline-list">
-                      {stringToArray(data.Director).map((i) => (
-                        <li key={i}>{i}</li>
-                      ))}
+                      {generateListItemsWithClass(stringToArray(data.Director))}
                     </ul>
                   </div>
                 )}
@@ -170,9 +167,7 @@ function App() {
                   <div className="field-value">
                     <span className="field">Writer:</span>
                     <ul className="inline-list">
-                      {stringToArray(data.Writer).map((i) => (
-                        <li key={i}>{i}</li>
-                      ))}
+                      {generateListItemsWithClass(stringToArray(data.Writer))}
                     </ul>
                   </div>
                 )}
@@ -181,9 +176,7 @@ function App() {
                   <div className="field-value">
                     <span className="field">Actors:</span>
                     <ul className="inline-list">
-                      {stringToArray(data.Actors).map((i) => (
-                        <li key={i}>{i}</li>
-                      ))}
+                      {generateListItemsWithClass(stringToArray(data.Actors))}
                     </ul>
                   </div>
                 )}
