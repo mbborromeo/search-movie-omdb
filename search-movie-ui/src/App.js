@@ -3,6 +3,8 @@ import { useState } from "react";
 
 import loadingImage from "./images/loading.gif";
 
+import ListOfItems from "./components/ListOfItems";
+
 function App() {
   const [title, setTitle] = useState("");
   const [previousSearch, setPreviousSearch] = useState("");
@@ -66,25 +68,9 @@ function App() {
     return value !== "N/A" ? true : false;
   };
 
-  const dataLoaded = () => {
-    return !loading && data ? true : false;
-  };
-
-  const matchFound = () => {
-    return data.Response === "True" ? true : false;
-  };
-
   const stringToArray = (str) => {
     const arrayOfItems = str.split(", ");
     return arrayOfItems;
-  };
-
-  const generateListItemsWithClass = (arr, classname) => {
-    return arr.map((item) => (
-      <li key={item} className={classname ? classname : ""}>
-        {item}
-      </li>
-    ));
   };
 
   return (
@@ -101,13 +87,13 @@ function App() {
 
       <div className="presentation">
         <div className="row row-1">
-          {(loading || (dataLoaded() && !matchFound())) && (
+          {(loading || (!loading && data && data.Response === "False")) && (
             <div className="message">
               <p>{message}</p>
             </div>
           )}
 
-          {dataLoaded() && matchFound() && (
+          {!loading && data && data.Response === "True" && (
             <>
               <h1>{data.Title}</h1>
               <ul className="inline-list details-bar">
@@ -130,7 +116,7 @@ function App() {
             </div>
           )}
 
-          {dataLoaded() && matchFound() && (
+          {!loading && data && data.Response === "True" && (
             <>
               {hasData(data.Poster) && (
                 <div className="column col-1">
@@ -144,12 +130,10 @@ function App() {
 
               <div className="column col-2">
                 {hasData(data.Genre) && (
-                  <ul className="pills-container">
-                    {generateListItemsWithClass(
-                      stringToArray(data.Genre),
-                      "pill"
-                    )}
-                  </ul>
+                  <ListOfItems
+                    items={stringToArray(data.Genre)}
+                    classname="pills-container"
+                  />
                 )}
 
                 {hasData(data.Plot) && <p>{data.Plot}</p>}
@@ -157,27 +141,30 @@ function App() {
                 {hasData(data.Director) && (
                   <div className="field-value">
                     <span className="field">Director:</span>
-                    <ul className="inline-list">
-                      {generateListItemsWithClass(stringToArray(data.Director))}
-                    </ul>
+                    <ListOfItems
+                      items={stringToArray(data.Director)}
+                      classname="inline-list"
+                    />
                   </div>
                 )}
 
                 {hasData(data.Writer) && (
                   <div className="field-value">
                     <span className="field">Writer:</span>
-                    <ul className="inline-list">
-                      {generateListItemsWithClass(stringToArray(data.Writer))}
-                    </ul>
+                    <ListOfItems
+                      items={stringToArray(data.Writer)}
+                      classname="inline-list"
+                    />
                   </div>
                 )}
 
                 {hasData(data.Actors) && (
                   <div className="field-value">
                     <span className="field">Actors:</span>
-                    <ul className="inline-list">
-                      {generateListItemsWithClass(stringToArray(data.Actors))}
-                    </ul>
+                    <ListOfItems
+                      items={stringToArray(data.Actors)}
+                      classname="inline-list"
+                    />
                   </div>
                 )}
 
