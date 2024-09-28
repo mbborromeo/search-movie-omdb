@@ -74,15 +74,18 @@ function App() {
     return data.Response === "True" ? true : false;
   };
 
-  const createGenreTags = (genreString) => {
-    const genreArray = genreString.split(", ");
-
-    return genreArray.map((genre) => (
-      <span key={genre} className="pill">
-        {genre}
-      </span>
-    ));
+  const stringToArray = (str) => {
+    const arrayOfItems = str.split(", ");
+    return arrayOfItems;
   };
+
+  // const createGenreTags = (arr) => {
+  //   return arr.map((item) => (
+  //     <span key={item} className="pill">
+  //       {item}
+  //     </span>
+  //   ));
+  // };
 
   return (
     <div className="App">
@@ -107,13 +110,21 @@ function App() {
           {dataLoaded() && matchFound() && (
             <>
               <h1>{data.Title}</h1>
-              <ul className="inline-list">
+              <ul className="inline-list details-bar">
                 {data.Type !== "movie" && (
-                  <li>{capitalizeFirstLetter(data.Type)}</li>
+                  <li className="inline-item">
+                    {capitalizeFirstLetter(data.Type)}
+                  </li>
                 )}
-                {hasData(data.Year) && <li>{data.Year}</li>}
-                {hasData(data.Rated) && <li>{data.Rated}</li>}
-                {hasData(data.Runtime) && <li>{data.Runtime}</li>}
+                {hasData(data.Year) && (
+                  <li className="inline-item">{data.Year}</li>
+                )}
+                {hasData(data.Rated) && (
+                  <li className="inline-item">{data.Rated}</li>
+                )}
+                {hasData(data.Runtime) && (
+                  <li className="inline-item">{data.Runtime}</li>
+                )}
               </ul>
             </>
           )}
@@ -141,41 +152,67 @@ function App() {
 
               <div className="column col-2">
                 {hasData(data.Genre) && (
-                  <div className="pills-container">
-                    {createGenreTags(data.Genre)}
-                  </div>
+                  <ul className="pills-container">
+                    {stringToArray(data.Genre).map((genre) => (
+                      <li key={genre} className="pill">
+                        {genre}
+                      </li>
+                    ))}
+                  </ul>
                 )}
 
                 {hasData(data.Plot) && <p>{data.Plot}</p>}
 
                 {hasData(data.Director) && (
                   <div className="field-value">
-                    <span className="field">Director:</span> {data.Director}
+                    <span className="field">Director:</span>
+                    <div className="inline-list">
+                      {stringToArray(data.Director).map((i) => (
+                        <span className="inline-item" key={i}>
+                          {i}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {hasData(data.Writer) && (
                   <div className="field-value">
-                    <span className="field">Writer:</span> {data.Writer}
+                    <span className="field">Writer:</span>
+                    <div className="inline-list">
+                      {stringToArray(data.Writer).map((i) => (
+                        <span className="inline-item" key={i}>
+                          {i}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {hasData(data.Actors) && (
                   <div className="field-value">
-                    <span className="field">Actors:</span> {data.Actors}
+                    <span className="field">Actors:</span>
+                    <div className="inline-list">
+                      {stringToArray(data.Actors).map((i) => (
+                        <span className="inline-item" key={i}>
+                          {i}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {hasData(data.Language) && (
                   <div className="field-value">
-                    <span className="field">Language:</span> {data.Language}
+                    <span className="field">Language:</span>
+                    {data.Language}
                   </div>
                 )}
 
                 <div className="field-value">
                   {hasData(data.imdbRating) && (
                     <>
-                      <span className="field">IMDB Rating:</span>{" "}
+                      <span className="field">IMDB Rating:</span>
                       {data.imdbRating}/10
                     </>
                   )}
@@ -188,7 +225,8 @@ function App() {
 
                 {hasData(data.Awards) && (
                   <div className="field-value">
-                    <span className="field">Awards:</span> {data.Awards}
+                    <span className="field">Awards:</span>
+                    {data.Awards}
                   </div>
                 )}
               </div>
