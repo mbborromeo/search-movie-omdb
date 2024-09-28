@@ -1,5 +1,5 @@
 import "./App.scss";
-import { useState } from "react"; // Suspense
+import { useState } from "react";
 
 import loadingImage from "./images/loading.gif";
 
@@ -66,6 +66,14 @@ function App() {
     return value !== "N/A" ? true : false;
   };
 
+  const dataLoaded = () => {
+    return !loading && data ? true : false;
+  };
+
+  const matchFound = () => {
+    return data.Response === "True" ? true : false;
+  };
+
   const createGenreTags = (genreString) => {
     const genreArray = genreString.split(", ");
 
@@ -89,21 +97,15 @@ function App() {
       </form>
 
       <div className="presentation">
-        <div className="message">
-          {loading && (
-            <>
+        <div className="row row-1">
+          {(loading || (dataLoaded() && !matchFound())) && (
+            <div className="message">
               <p>{message}</p>
-              <br />
-              <img src={loadingImage} width="128" height="128" alt="loading" />
-            </>
+            </div>
           )}
 
-          {!loading && data && data.Response === "False" && <p>{message}</p>}
-        </div>
-
-        {!loading && data && data.Response === "True" && (
-          <>
-            <div className="row row-1">
+          {dataLoaded() && matchFound() && (
+            <>
               <h1>{data.Title}</h1>
               <ul className="inline-list">
                 {data.Type !== "movie" && (
@@ -113,25 +115,29 @@ function App() {
                 {hasData(data.Rated) && <li>{data.Rated}</li>}
                 {hasData(data.Runtime) && <li>{data.Runtime}</li>}
               </ul>
-              <hr />
-            </div>
+            </>
+          )}
+          <hr />
+        </div>
 
-            <div className="row row-2">
-              <div className="column col-1">
-                {hasData(data.Poster) && (
-                  // <Suspense
-                  //   fallback={
-                  //     <img src={loadingImage} width="64" height="64" alt="loading" />
-                  //   }
-                  // >
+        <div className="row row-2">
+          {loading && (
+            <div className="loading-wrapper">
+              <img id="loading-gif" src={loadingImage} alt="loading" />
+            </div>
+          )}
+
+          {dataLoaded() && matchFound() && (
+            <>
+              {hasData(data.Poster) && (
+                <div className="column col-1">
                   <img
                     id="poster"
                     src={data.Poster}
                     alt={`Poster of ${data.Title}`}
                   />
-                  // </Suspense>
-                )}
-              </div>
+                </div>
+              )}
 
               <div className="column col-2">
                 {hasData(data.Genre) && (
@@ -186,9 +192,9 @@ function App() {
                   </div>
                 )}
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
