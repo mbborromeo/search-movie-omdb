@@ -2,6 +2,8 @@
 
 REST API call to OMDB
 
+This assignment/project lets user's search for a movie by title. It sends a request to OMDB API to get the movie data and poster image.
+
 This is a Full-Stack project, so there is a client folder and server folder:
 
 - search-movie-ui (built in React)
@@ -15,7 +17,7 @@ Note: The backend makes a REST API call to OMDB, which you will need an API Key 
 ## Features Done
 
 - Connect to API to fetch live data from OMDB
-- Improved presentation of searched movie
+- Improved presentation layer of searched movie
 - Mobile-responsive layout
 - SASS for styling
 - Reusable React component for list elements
@@ -36,3 +38,7 @@ Note: The backend makes a REST API call to OMDB, which you will need an API Key 
 - node v18.18.2
 - node-fetch v2.6.9
 - dotenv v16.4.5
+
+### Author
+
+Michael Borromeo and Relayfy
