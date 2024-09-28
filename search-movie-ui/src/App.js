@@ -98,7 +98,7 @@ function App() {
 
       <div className="presentation">
         <div className="row row-1">
-          {((dataLoaded() && !matchFound()) || loading) && (
+          {(loading || (dataLoaded() && !matchFound())) && (
             <div className="message">
               <p>{message}</p>
             </div>
@@ -117,30 +117,29 @@ function App() {
               </ul>
             </>
           )}
-
           <hr />
+        </div>
 
+        <div className="row row-2">
           {loading && (
             <div className="loading-wrapper">
               <img id="loading-gif" src={loadingImage} alt="loading" />
             </div>
           )}
-        </div>
 
-        <div className="row row-2">
-          <div className="column col-1">
-            {dataLoaded() && matchFound() && hasData(data.Poster) && (
-              <img
-                id="poster"
-                src={data.Poster}
-                alt={`Poster of ${data.Title}`}
-              />
-            )}
-          </div>
+          {dataLoaded() && matchFound() && (
+            <>
+              {hasData(data.Poster) && (
+                <div className="column col-1">
+                  <img
+                    id="poster"
+                    src={data.Poster}
+                    alt={`Poster of ${data.Title}`}
+                  />
+                </div>
+              )}
 
-          <div className="column col-2">
-            {dataLoaded() && matchFound() && (
-              <>
+              <div className="column col-2">
                 {hasData(data.Genre) && (
                   <div className="pills-container">
                     {createGenreTags(data.Genre)}
@@ -192,9 +191,9 @@ function App() {
                     <span className="field">Awards:</span> {data.Awards}
                   </div>
                 )}
-              </>
-            )}
-          </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

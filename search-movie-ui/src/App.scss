@@ -130,6 +130,10 @@ hr {
   &.col-1 {
     // background-color: grey;
     margin-bottom: 7px;
+
+    @media only screen and (min-width: $breakpoint-tablet) {
+      padding-right: 22px;
+    }
   }
 
   &.col-2 {
@@ -137,10 +141,6 @@ hr {
       font-size: 17px;
       margin-top: 0;
       margin-bottom: 22px;
-    }
-
-    @media only screen and (min-width: $breakpoint-tablet) {
-      padding-left: 22px;
     }
   }
 
