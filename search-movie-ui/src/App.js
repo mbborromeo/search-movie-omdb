@@ -62,6 +62,10 @@ function App() {
       : numberString;
   };
 
+  const hasData = (value) => {
+    return value !== "N/A" ? true : false;
+  };
+
   const createGenreTags = (genreString) => {
     const genreArray = genreString.split(", ");
 
@@ -105,16 +109,16 @@ function App() {
                 {data.Type !== "movie" && (
                   <li>{capitalizeFirstLetter(data.Type)}</li>
                 )}
-                <li>{data.Year}</li>
-                {data.Rated !== "N/A" && <li>{data.Rated}</li>}
-                {data.Runtime !== "N/A" && <li>{data.Runtime}</li>}
+                {hasData(data.Year) && <li>{data.Year}</li>}
+                {hasData(data.Rated) && <li>{data.Rated}</li>}
+                {hasData(data.Runtime) && <li>{data.Runtime}</li>}
               </ul>
               <hr />
             </div>
 
             <div className="row row-2">
               <div className="column col-1">
-                {data.Poster !== "N/A" && (
+                {hasData(data.Poster) && (
                   // <Suspense
                   //   fallback={
                   //     <img src={loadingImage} width="64" height="64" alt="loading" />
@@ -130,51 +134,53 @@ function App() {
               </div>
 
               <div className="column col-2">
-                <div className="pills-container">
-                  {createGenreTags(data.Genre)}
-                </div>
+                {hasData(data.Genre) && (
+                  <div className="pills-container">
+                    {createGenreTags(data.Genre)}
+                  </div>
+                )}
 
-                {data.Plot !== "N/A" && <p>{data.Plot}</p>}
+                {hasData(data.Plot) && <p>{data.Plot}</p>}
 
-                {data.Director !== "N/A" && (
+                {hasData(data.Director) && (
                   <div className="field-value">
                     <span className="field">Director:</span> {data.Director}
                   </div>
                 )}
 
-                {data.Writer !== "N/A" && (
+                {hasData(data.Writer) && (
                   <div className="field-value">
                     <span className="field">Writer:</span> {data.Writer}
                   </div>
                 )}
 
-                {data.Actors !== "N/A" && (
+                {hasData(data.Actors) && (
                   <div className="field-value">
                     <span className="field">Actors:</span> {data.Actors}
                   </div>
                 )}
 
-                {data.Language !== "N/A" && (
+                {hasData(data.Language) && (
                   <div className="field-value">
                     <span className="field">Language:</span> {data.Language}
                   </div>
                 )}
 
                 <div className="field-value">
-                  {data.imdbRating !== "N/A" && (
+                  {hasData(data.imdbRating) && (
                     <>
                       <span className="field">IMDB Rating:</span>{" "}
                       {data.imdbRating}/10
                     </>
                   )}
-                  {data.imdbVotes !== "N/A" && (
+                  {hasData(data.imdbVotes) && (
                     <span className="votes">
                       ({formatVotes(data.imdbVotes)} votes)
                     </span>
                   )}
                 </div>
 
-                {data.Awards !== "N/A" && (
+                {hasData(data.Awards) && (
                   <div className="field-value">
                     <span className="field">Awards:</span> {data.Awards}
                   </div>
