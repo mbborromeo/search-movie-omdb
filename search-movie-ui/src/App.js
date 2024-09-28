@@ -1,5 +1,5 @@
 import "./App.scss";
-import { useState } from "react"; // Suspense
+import { useState } from "react";
 
 import loadingImage from "./images/loading.gif";
 
@@ -89,21 +89,15 @@ function App() {
       </form>
 
       <div className="presentation">
-        <div className="message">
-          {loading && (
-            <>
+        <div className="row row-1">
+          {((!loading && data && data.Response === "False") || loading) && (
+            <div className="message">
               <p>{message}</p>
-              <br />
-              <img src={loadingImage} width="128" height="128" alt="loading" />
-            </>
+            </div>
           )}
 
-          {!loading && data && data.Response === "False" && <p>{message}</p>}
-        </div>
-
-        {!loading && data && data.Response === "True" && (
-          <>
-            <div className="row row-1">
+          {!loading && data && data.Response === "True" && (
+            <>
               <h1>{data.Title}</h1>
               <ul className="inline-list">
                 {data.Type !== "movie" && (
@@ -113,27 +107,35 @@ function App() {
                 {hasData(data.Rated) && <li>{data.Rated}</li>}
                 {hasData(data.Runtime) && <li>{data.Runtime}</li>}
               </ul>
-              <hr />
+            </>
+          )}
+
+          <hr />
+
+          {loading && (
+            <div className="loading-wrapper">
+              <img id="loading-gif" src={loadingImage} alt="loading" />
             </div>
+          )}
+        </div>
 
-            <div className="row row-2">
-              <div className="column col-1">
-                {hasData(data.Poster) && (
-                  // <Suspense
-                  //   fallback={
-                  //     <img src={loadingImage} width="64" height="64" alt="loading" />
-                  //   }
-                  // >
-                  <img
-                    id="poster"
-                    src={data.Poster}
-                    alt={`Poster of ${data.Title}`}
-                  />
-                  // </Suspense>
-                )}
-              </div>
+        <div className="row row-2">
+          <div className="column col-1">
+            {!loading &&
+              data &&
+              data.Response === "True" &&
+              hasData(data.Poster) && (
+                <img
+                  id="poster"
+                  src={data.Poster}
+                  alt={`Poster of ${data.Title}`}
+                />
+              )}
+          </div>
 
-              <div className="column col-2">
+          <div className="column col-2">
+            {!loading && data && data.Response === "True" && (
+              <>
                 {hasData(data.Genre) && (
                   <div className="pills-container">
                     {createGenreTags(data.Genre)}
@@ -185,10 +187,10 @@ function App() {
                     <span className="field">Awards:</span> {data.Awards}
                   </div>
                 )}
-              </div>
-            </div>
-          </>
-        )}
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

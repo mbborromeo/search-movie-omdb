@@ -156,6 +156,23 @@ hr {
   }
 }
 
+.loading-wrapper {
+  width: 100%;
+  min-height: 256px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // border: 1px solid blue;
+}
+
+#loading-gif {
+  width: 50%;
+  height: auto;
+  object-position: center center;
+  object-fit: scale-down;
+  // border: 1px solid red;    
+}
+
 .pills-container {
   display: flex;
   flex-wrap: wrap;
