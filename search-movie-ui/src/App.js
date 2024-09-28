@@ -66,6 +66,14 @@ function App() {
     return value !== "N/A" ? true : false;
   };
 
+  const dataLoaded = () => {
+    return !loading && data ? true : false;
+  };
+
+  const matchFound = () => {
+    return data.Response === "True" ? true : false;
+  };
+
   const createGenreTags = (genreString) => {
     const genreArray = genreString.split(", ");
 
@@ -90,13 +98,13 @@ function App() {
 
       <div className="presentation">
         <div className="row row-1">
-          {((!loading && data && data.Response === "False") || loading) && (
+          {((dataLoaded() && !matchFound()) || loading) && (
             <div className="message">
               <p>{message}</p>
             </div>
           )}
 
-          {!loading && data && data.Response === "True" && (
+          {dataLoaded() && matchFound() && (
             <>
               <h1>{data.Title}</h1>
               <ul className="inline-list">
@@ -121,20 +129,17 @@ function App() {
 
         <div className="row row-2">
           <div className="column col-1">
-            {!loading &&
-              data &&
-              data.Response === "True" &&
-              hasData(data.Poster) && (
-                <img
-                  id="poster"
-                  src={data.Poster}
-                  alt={`Poster of ${data.Title}`}
-                />
-              )}
+            {dataLoaded() && matchFound() && hasData(data.Poster) && (
+              <img
+                id="poster"
+                src={data.Poster}
+                alt={`Poster of ${data.Title}`}
+              />
+            )}
           </div>
 
           <div className="column col-2">
-            {!loading && data && data.Response === "True" && (
+            {dataLoaded() && matchFound() && (
               <>
                 {hasData(data.Genre) && (
                   <div className="pills-container">
