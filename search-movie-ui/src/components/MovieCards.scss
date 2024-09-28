@@ -1,0 +1,61 @@
+@import '../styles/global';
+
+
+.fav-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.movie-frame {
+  display: flex;
+  align-items: stretch;
+  height: auto;
+  width: 48%;
+  margin-bottom: 10px;
+  position: relative;
+  transition: transform 0.2s;
+
+  @include for-tablet-and-wider {
+    width: 24%;
+  }
+}
+
+.movie-image {
+  width: 100%;
+  height: auto;
+}
+
+.movie-header {
+  color: #000000;
+  font-weight: 400;
+  font-size: 24px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+.movie-frame:hover .overlay-container {
+  opacity: 1;
+}
+
+.overlay-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  transition: 0.5s ease;
+  opacity: 0;
+  bottom: 0;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    background: lightseagreen;
+  }
+}

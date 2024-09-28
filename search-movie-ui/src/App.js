@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import ListOfItems from "./components/ListOfItems";
+import MovieCards from "./components/MovieCards";
+import { IconRemoveFavorite } from "./components/FavouriteButtons";
 
 import {
   capitalizeFirstLetter,
   stringToArray,
+  trimAndReplaceSpaces,
   formatNumberOfVotes,
   hasData,
 } from "./util/utils";
 
-import "./App.scss";
+import "./styles/main.scss";
 
 import loadingImage from "./images/loading.gif";
 
@@ -19,12 +22,55 @@ function App() {
   const [data, setData] = useState({});
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+
+  // checking if HTML5 localStorage has an item with key "omdb-movie-app"
+  useEffect(() => {
+    const updatedFavorites = JSON.parse(localStorage.getItem("omdb-movie-app"));
+
+    if (updatedFavorites) {
+      setFavorites(updatedFavorites);
+    }
+  }, []);
+
+  // saves item to HTML5 localStorage
+  const saveToLocalStorage = (items) => {
+    localStorage.setItem("omdb-movie-app", JSON.stringify(items));
+  };
+
+  // localStorage Resource: https://dev.to/willochs316/building-a-movie-app-with-react-and-ombd-api-a-step-by-step-guide-2p33#storing-api
+  const addFavoriteMovie = (movie) => {
+    // make shallow copy of favorites array if exists, else use an empty array
+    let copyOfFavourites = [...(favorites ? favorites : [])];
+
+    const previouslySavedMovie = favorites?.find(
+      (element) => element.imdbID === movie.imdbID
+    );
+
+    if (!previouslySavedMovie) {
+      // add movie to start of favorites array
+      copyOfFavourites = [movie, ...copyOfFavourites];
+    }
+
+    // set to both React State and localStorage
+    setFavorites(copyOfFavourites);
+    saveToLocalStorage(copyOfFavourites);
+  };
+
+  const removeFavoriteMovie = (movie) => {
+    const favouritesAmmended = favorites?.filter(
+      (favorite) => favorite.imdbID !== movie.imdbID
+    );
+
+    setFavorites(favouritesAmmended);
+    saveToLocalStorage(favouritesAmmended);
+  };
 
   let handleSubmit = async (e) => {
     e.preventDefault();
 
     // clean up string
-    const titleNoSpaces = title.trim().replaceAll(" ", "+");
+    const titleNoSpaces = trimAndReplaceSpaces(title);
 
     // check there is a valid search before submitting
     if (titleNoSpaces && titleNoSpaces !== previousSearch) {
@@ -180,9 +226,30 @@ function App() {
                     {data.Awards}
                   </div>
                 )}
+
+                <div className="cta-placeholder">
+                  <button
+                    className="btn-add"
+                    onClick={() => addFavoriteMovie(data)}
+                  >
+                    Add to Favourites
+                  </button>
+                </div>
               </div>
             </>
           )}
+        </div>
+
+        <div className="row row-3">
+          <hr />
+          <h2>Favourites</h2>
+
+          {/* list of favourite movies saved on localStorage */}
+          <MovieCards
+            movies={favorites}
+            buttonRemove={IconRemoveFavorite}
+            handleClick={removeFavoriteMovie}
+          />
         </div>
       </div>
     </div>

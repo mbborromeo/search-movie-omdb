@@ -1,0 +1,6 @@
+/* Mixin Functions */
+@mixin for-tablet-and-wider {
+  @media only screen and (min-width: $breakpoint-tablet) { 
+    @content; 
+  }
+}
