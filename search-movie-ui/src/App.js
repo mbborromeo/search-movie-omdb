@@ -74,13 +74,16 @@ function App() {
     return data.Response === "True" ? true : false;
   };
 
-  const createGenreTags = (genreString) => {
-    const genreArray = genreString.split(", ");
+  const stringToArray = (str) => {
+    const arrayOfItems = str.split(", ");
+    return arrayOfItems;
+  };
 
-    return genreArray.map((genre) => (
-      <span key={genre} className="pill">
-        {genre}
-      </span>
+  const generateListItemsWithClass = (arr, classname) => {
+    return arr.map((item) => (
+      <li key={item} className={classname ? classname : ""}>
+        {item}
+      </li>
     ));
   };
 
@@ -107,7 +110,7 @@ function App() {
           {dataLoaded() && matchFound() && (
             <>
               <h1>{data.Title}</h1>
-              <ul className="inline-list">
+              <ul className="inline-list details-bar">
                 {data.Type !== "movie" && (
                   <li>{capitalizeFirstLetter(data.Type)}</li>
                 )}
@@ -141,41 +144,54 @@ function App() {
 
               <div className="column col-2">
                 {hasData(data.Genre) && (
-                  <div className="pills-container">
-                    {createGenreTags(data.Genre)}
-                  </div>
+                  <ul className="pills-container">
+                    {generateListItemsWithClass(
+                      stringToArray(data.Genre),
+                      "pill"
+                    )}
+                  </ul>
                 )}
 
                 {hasData(data.Plot) && <p>{data.Plot}</p>}
 
                 {hasData(data.Director) && (
                   <div className="field-value">
-                    <span className="field">Director:</span> {data.Director}
+                    <span className="field">Director:</span>
+                    <ul className="inline-list">
+                      {generateListItemsWithClass(stringToArray(data.Director))}
+                    </ul>
                   </div>
                 )}
 
                 {hasData(data.Writer) && (
                   <div className="field-value">
-                    <span className="field">Writer:</span> {data.Writer}
+                    <span className="field">Writer:</span>
+                    <ul className="inline-list">
+                      {generateListItemsWithClass(stringToArray(data.Writer))}
+                    </ul>
                   </div>
                 )}
 
                 {hasData(data.Actors) && (
                   <div className="field-value">
-                    <span className="field">Actors:</span> {data.Actors}
+                    <span className="field">Actors:</span>
+                    <ul className="inline-list">
+                      {generateListItemsWithClass(stringToArray(data.Actors))}
+                    </ul>
                   </div>
                 )}
 
                 {hasData(data.Language) && (
                   <div className="field-value">
-                    <span className="field">Language:</span> {data.Language}
+                    <span className="field">Language:</span>
+                    {data.Language}
                   </div>
                 )}
 
                 <div className="field-value">
                   {hasData(data.imdbRating) && (
                     <>
-                      <span className="field">IMDB Rating:</span>{" "}
+                      <span className="field">IMDB Rating:</span>
                       {data.imdbRating}/10
                     </>
                   )}
@@ -188,7 +204,8 @@ function App() {
 
                 {hasData(data.Awards) && (
                   <div className="field-value">
-                    <span className="field">Awards:</span> {data.Awards}
+                    <span className="field">Awards:</span>
+                    {data.Awards}
                   </div>
                 )}
               </div>

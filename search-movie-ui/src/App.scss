@@ -60,14 +60,14 @@ h1 {
   line-height: 115%;
 }
 
-ul {
-  margin: 6px 0 3px;
-}
-
 hr {
   border-top: 1px dotted black;
   width: 100%;
   margin: 7px 0 16px;
+}
+
+ul {
+  margin: 6px 0 3px;
 }
 
 .message {
@@ -84,12 +84,18 @@ hr {
   }
 }
 
+.details-bar {
+  font-size: 15px;
+  margin-top: 10px;
+}
+
 .inline-list {
   padding: 0;
-  font-size: 15px;
+  display: inline;
 
   li {
-    display: inline-block;
+    display: inline;
+    word-break: break-word;
 
     &::before {
       display: inline-block;
@@ -109,6 +115,22 @@ hr {
       }
     }
   }
+}
+
+.pills-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 12px 0;
+  padding: 0;
+}
+
+.pill {
+  border: 1px solid black;
+  border-radius: 16px;
+  padding: 3px 10px;
+  margin: .25rem .5rem .2rem 0;
+  font-size: 15px;
+  list-style-type: none;
 }
 
 .row {
@@ -173,26 +195,13 @@ hr {
   // border: 1px solid red;    
 }
 
-.pills-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
-}
-
-.pill {
-  border: 1px solid black;
-  border-radius: 16px;
-  padding: 3px 10px;
-  margin: .25rem .5rem .2rem 0;
-  font-size: 15px;
-}
-
 .field-value {
   margin-bottom: 18px;
 }
 
 .field {
   font-weight: bold;
+  padding-right: 11px;
 }
 
 .votes {
