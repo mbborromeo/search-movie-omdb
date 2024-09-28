@@ -23,46 +23,45 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState([]);
 
-  // Resource for localStorage: https://dev.to/willochs316/building-a-movie-app-with-react-and-ombd-api-a-step-by-step-guide-2p33#storing-api
-  // localStorage is queried for an item with key "react-movie-app", which contain a stringified JSON object of the updated favorites.
-  // This value is parsed and then used to update the favorites state using the setFavorites function.
+  // resource for localStorage: https://dev.to/willochs316/building-a-movie-app-with-react-and-ombd-api-a-step-by-step-guide-2p33#storing-api
+  // checking if HTML5 localStorage has an item with key "omdb-movie-app"
   useEffect(() => {
-    const updatedFavorites = JSON.parse(
-      localStorage.getItem("react-movie-app")
-    );
+    const updatedFavorites = JSON.parse(localStorage.getItem("omdb-movie-app"));
 
-    setFavorites(updatedFavorites);
+    if (updatedFavorites) {
+      setFavorites(updatedFavorites);
+    }
   }, []);
 
   const saveToLocalStorage = (items) => {
-    localStorage.setItem("react-movie-app", JSON.stringify(items));
+    localStorage.setItem("omdb-movie-app", JSON.stringify(items));
   };
 
   const addFavoriteMovie = (movie) => {
-    // Use the || operator to ensure that favorites is not undefined before creating the new copy
-    const newFavorites = [...(favorites || [])];
+    // make shallow copy of favorites array if exists, else use an empty array
+    let copyOfFavourites = [...(favorites ? favorites : [])];
 
-    console.log("local favorites", favorites);
-    const found = favorites?.find((element) => element.imdbID === movie.imdbID);
-    console.log("found", found);
+    const previouslySavedMovie = favorites?.find(
+      (element) => element.imdbID === movie.imdbID
+    );
 
-    // add movie to favorites array using push method
-    if (!found) {
-      newFavorites?.unshift(movie); // newFavorites = newFavorites.push(movie)
+    if (!previouslySavedMovie) {
+      // add movie to start of favorites array
+      copyOfFavourites = [movie, ...copyOfFavourites];
     }
-    // set the updated favorites array state
-    setFavorites(newFavorites);
-    saveToLocalStorage(newFavorites);
+
+    // set to both React State and HTML5 localStorage
+    setFavorites(copyOfFavourites);
+    saveToLocalStorage(copyOfFavourites);
   };
 
   const removeFavoriteMovie = (movie) => {
-    const existingFavorites = favorites?.filter(
+    const favouritesAmmended = favorites?.filter(
       (favorite) => favorite.imdbID !== movie.imdbID
     );
-    console.log("existingFavorites:", existingFavorites);
 
-    setFavorites(existingFavorites);
-    saveToLocalStorage(existingFavorites);
+    setFavorites(favouritesAmmended);
+    saveToLocalStorage(favouritesAmmended);
   };
 
   let handleSubmit = async (e) => {
