@@ -7,6 +7,7 @@ import { IconRemoveFavorite } from "./components/FavouriteButton";
 import {
   capitalizeFirstLetter,
   stringToArray,
+  trimAndReplaceSpaces,
   formatNumberOfVotes,
   hasData,
 } from "./util/utils";
@@ -23,7 +24,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState([]);
 
-  // resource for localStorage: https://dev.to/willochs316/building-a-movie-app-with-react-and-ombd-api-a-step-by-step-guide-2p33#storing-api
   // checking if HTML5 localStorage has an item with key "omdb-movie-app"
   useEffect(() => {
     const updatedFavorites = JSON.parse(localStorage.getItem("omdb-movie-app"));
@@ -33,6 +33,7 @@ function App() {
     }
   }, []);
 
+  // saves item to HTML5 localStorage
   const saveToLocalStorage = (items) => {
     localStorage.setItem("omdb-movie-app", JSON.stringify(items));
   };
@@ -50,7 +51,7 @@ function App() {
       copyOfFavourites = [movie, ...copyOfFavourites];
     }
 
-    // set to both React State and HTML5 localStorage
+    // set to both React State and localStorage
     setFavorites(copyOfFavourites);
     saveToLocalStorage(copyOfFavourites);
   };
@@ -68,7 +69,7 @@ function App() {
     e.preventDefault();
 
     // clean up string
-    const titleNoSpaces = title.trim().replaceAll(" ", "+");
+    const titleNoSpaces = trimAndReplaceSpaces(title);
 
     // check there is a valid search before submitting
     if (titleNoSpaces && titleNoSpaces !== previousSearch) {

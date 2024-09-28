@@ -8,6 +8,10 @@ export const stringToArray = (str) => {
   return arrayOfItems;
 };
 
+export const trimAndReplaceSpaces = (str) => {
+  return str.trim().replaceAll(" ", "+");
+};
+
 export const formatNumberOfVotes = (numberString) => {
   const numStringWithoutCommas = numberString.replaceAll(",", "");
 
