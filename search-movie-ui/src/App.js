@@ -1,5 +1,5 @@
 import "./App.scss";
-import { useState, Suspense } from "react";
+import { useState } from "react"; // Suspense
 
 import loadingImage from "./images/loading.gif";
 
