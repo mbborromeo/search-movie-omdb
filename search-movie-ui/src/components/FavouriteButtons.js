@@ -1,5 +1,5 @@
 import React from "react";
-import "./FavouriteButton.scss";
+import "./FavouriteButtons.scss";
 
 export const IconRemoveFavorite = () => {
   return (

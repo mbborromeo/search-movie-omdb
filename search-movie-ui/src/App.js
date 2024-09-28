@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 import ListOfItems from "./components/ListOfItems";
-import MovieCard from "./components/MovieCard";
-import { IconRemoveFavorite } from "./components/FavouriteButton";
+import MovieCards from "./components/MovieCards";
+import { IconRemoveFavorite } from "./components/FavouriteButtons";
 
 import {
   capitalizeFirstLetter,
@@ -12,7 +12,7 @@ import {
   hasData,
 } from "./util/utils";
 
-import "./App.scss";
+import "./styles/main.scss";
 
 import loadingImage from "./images/loading.gif";
 
@@ -38,6 +38,7 @@ function App() {
     localStorage.setItem("omdb-movie-app", JSON.stringify(items));
   };
 
+  // localStorage Resource: https://dev.to/willochs316/building-a-movie-app-with-react-and-ombd-api-a-step-by-step-guide-2p33#storing-api
   const addFavoriteMovie = (movie) => {
     // make shallow copy of favorites array if exists, else use an empty array
     let copyOfFavourites = [...(favorites ? favorites : [])];
@@ -243,8 +244,8 @@ function App() {
           <hr />
           <h2>Favourites</h2>
 
-          {/* list of favourite movies (saved on localStorage) */}
-          <MovieCard
+          {/* list of favourite movies saved on localStorage */}
+          <MovieCards
             movies={favorites}
             buttonRemove={IconRemoveFavorite}
             handleClick={removeFavoriteMovie}
