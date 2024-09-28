@@ -112,19 +112,11 @@ function App() {
               <h1>{data.Title}</h1>
               <ul className="inline-list details-bar">
                 {data.Type !== "movie" && (
-                  <li className="inline-item">
-                    {capitalizeFirstLetter(data.Type)}
-                  </li>
+                  <li>{capitalizeFirstLetter(data.Type)}</li>
                 )}
-                {hasData(data.Year) && (
-                  <li className="inline-item">{data.Year}</li>
-                )}
-                {hasData(data.Rated) && (
-                  <li className="inline-item">{data.Rated}</li>
-                )}
-                {hasData(data.Runtime) && (
-                  <li className="inline-item">{data.Runtime}</li>
-                )}
+                {hasData(data.Year) && <li>{data.Year}</li>}
+                {hasData(data.Rated) && <li>{data.Rated}</li>}
+                {hasData(data.Runtime) && <li>{data.Runtime}</li>}
               </ul>
             </>
           )}
@@ -166,39 +158,33 @@ function App() {
                 {hasData(data.Director) && (
                   <div className="field-value">
                     <span className="field">Director:</span>
-                    <div className="inline-list">
+                    <ul className="inline-list">
                       {stringToArray(data.Director).map((i) => (
-                        <span className="inline-item" key={i}>
-                          {i}
-                        </span>
+                        <li key={i}>{i}</li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
                 )}
 
                 {hasData(data.Writer) && (
                   <div className="field-value">
                     <span className="field">Writer:</span>
-                    <div className="inline-list">
+                    <ul className="inline-list">
                       {stringToArray(data.Writer).map((i) => (
-                        <span className="inline-item" key={i}>
-                          {i}
-                        </span>
+                        <li key={i}>{i}</li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
                 )}
 
                 {hasData(data.Actors) && (
                   <div className="field-value">
                     <span className="field">Actors:</span>
-                    <div className="inline-list">
+                    <ul className="inline-list">
                       {stringToArray(data.Actors).map((i) => (
-                        <span className="inline-item" key={i}>
-                          {i}
-                        </span>
+                        <li key={i}>{i}</li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
                 )}
 
