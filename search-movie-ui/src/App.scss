@@ -130,9 +130,6 @@ hr {
   &.col-1 {
     // background-color: grey;
     margin-bottom: 7px;
-
-    /* placeholder for image */
-    min-height: $image-height-desktop;
   }
 
   &.col-2 {
@@ -149,6 +146,8 @@ hr {
 
   img#poster {
     width: 100%;
+    /* placeholder for image */
+    min-height: $image-height-desktop;
     height: auto;
 
     @media only screen and (min-width: $breakpoint-tablet) {
