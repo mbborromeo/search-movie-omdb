@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import ListOfItems from "./components/ListOfItems";
+import MovieCard from "./components/MovieCard";
+import { IconRemoveFavorite } from "./components/FavouriteButton";
 
 import {
   capitalizeFirstLetter,
@@ -19,6 +21,47 @@ function App() {
   const [data, setData] = useState({});
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+
+  // Resource for localStorage: https://dev.to/willochs316/building-a-movie-app-with-react-and-ombd-api-a-step-by-step-guide-2p33#storing-api
+  // localStorage is queried for an item with key "react-movie-app", which contain a stringified JSON object of the updated favorites.
+  // This value is parsed and then used to update the favorites state using the setFavorites function.
+  useEffect(() => {
+    const updatedFavorites = JSON.parse(
+      localStorage.getItem("react-movie-app")
+    );
+
+    setFavorites(updatedFavorites);
+  }, []);
+
+  const saveToLocalStorage = (items) => {
+    localStorage.setItem("react-movie-app", JSON.stringify(items));
+  };
+
+  const addFavoriteMovie = (movie) => {
+    // Use the || operator to ensure that favorites is not undefined before creating the new copy
+    const newFavorites = [...(favorites || [])];
+
+    console.log("local favorites", favorites);
+    const found = favorites.find((element) => element.imdbID === movie.imdbID);
+    console.log("found", found);
+
+    // add movie to favorites array using push method
+    if (!found) {
+      newFavorites?.unshift(movie); // newFavorites = newFavorites.push(movie)
+    }
+    // set the updated favorites array state
+    setFavorites(newFavorites);
+    saveToLocalStorage(newFavorites);
+  };
+
+  const removeFavoriteMovie = (movie) => {
+    const existingFavorites = favorites.filter(
+      (favorite) => favorite.imdbID !== movie.imdbID
+    );
+    setFavorites(existingFavorites);
+    saveToLocalStorage(existingFavorites);
+  };
 
   let handleSubmit = async (e) => {
     e.preventDefault();
@@ -180,9 +223,33 @@ function App() {
                     {data.Awards}
                   </div>
                 )}
+
+                <div className="cta-placeholder">
+                  <button
+                    className="btn-add"
+                    onClick={() => addFavoriteMovie(data)}
+                  >
+                    Add to Favourites
+                  </button>
+                </div>
               </div>
             </>
           )}
+        </div>
+
+        <div className="row row-3">
+          <hr />
+          <h2>Favourites</h2>
+
+          {/* list of favourite movies (saved on localStorage) */}
+          <MovieCard
+            movies={favorites}
+            // buttonRemove={IconRemoveFavorite}
+            // handleClick={() => {
+            //   console.log("clicked remove");
+            //   removeFavoriteMovie(data);
+            // }}
+          />
         </div>
       </div>
     </div>
