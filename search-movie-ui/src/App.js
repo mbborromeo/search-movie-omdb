@@ -1,7 +1,4 @@
-import "./App.scss";
 import { useState } from "react";
-
-import loadingImage from "./images/loading.gif";
 
 import ListOfItems from "./components/ListOfItems";
 
@@ -11,6 +8,10 @@ import {
   formatNumberOfVotes,
   hasData,
 } from "./util/utils";
+
+import "./App.scss";
+
+import loadingImage from "./images/loading.gif";
 
 function App() {
   const [title, setTitle] = useState("");
