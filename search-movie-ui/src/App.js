@@ -37,7 +37,7 @@ function App() {
             setData(data);
 
             // store previous search and reset title
-            setPreviousSearch(title);
+            setPreviousSearch(titleNoSpaces);
             setTitle("");
             setLoading(false);
           });
