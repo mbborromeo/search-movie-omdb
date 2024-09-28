@@ -1,5 +1,8 @@
 const http = require("http");
 const fetch = require("node-fetch");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const server = http.createServer(async (req, res) => {
   if (req.url.startsWith("/searchMovie") && req.method === "GET") {
@@ -25,7 +28,7 @@ const server = http.createServer(async (req, res) => {
           "http://www.omdbapi.com/?" +
             new URLSearchParams(
               {
-                apikey: "e425f00b", //FIXME: Put your OMDB API Key, https://www.omdbapi.com/apikey.aspx
+                apikey: process.env.OMDB_API_KEY, //FIXME: Put your OMDB API Key, https://www.omdbapi.com/apikey.aspx
                 t: result.title,
               },
               requestOptions
@@ -62,4 +65,3 @@ const server = http.createServer(async (req, res) => {
 server.listen(4000, () => {
   console.log(`Server is running`);
 });
-
