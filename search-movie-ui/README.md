@@ -73,3 +73,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
+### Dependencies
+
+- react v18.2.0
+- react-dom v18.2.0
+- react-scripts v5.0.1
+- sass v1.79.3
