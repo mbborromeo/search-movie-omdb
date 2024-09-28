@@ -5,6 +5,13 @@ import loadingImage from "./images/loading.gif";
 
 import ListOfItems from "./components/ListOfItems";
 
+import {
+  capitalizeFirstLetter,
+  stringToArray,
+  formatNumberOfVotes,
+  hasData,
+} from "./util/utils";
+
 function App() {
   const [title, setTitle] = useState("");
   const [previousSearch, setPreviousSearch] = useState("");
@@ -48,29 +55,6 @@ function App() {
         console.log(err);
       }
     }
-  };
-
-  const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
-
-  const formatVotes = (numberString) => {
-    const numStringWithoutCommas = numberString.replaceAll(",", "");
-
-    return numStringWithoutCommas >= 1000 && numStringWithoutCommas < 1000000
-      ? `${Math.floor(numStringWithoutCommas / 1000)}K`
-      : numStringWithoutCommas >= 1000000
-      ? `${Math.floor(numStringWithoutCommas / 1000000)}M`
-      : numberString;
-  };
-
-  const hasData = (value) => {
-    return value !== "N/A" ? true : false;
-  };
-
-  const stringToArray = (str) => {
-    const arrayOfItems = str.split(", ");
-    return arrayOfItems;
   };
 
   return (
@@ -184,7 +168,7 @@ function App() {
                   )}
                   {hasData(data.imdbVotes) && (
                     <span className="votes">
-                      ({formatVotes(data.imdbVotes)} votes)
+                      ({formatNumberOfVotes(data.imdbVotes)} votes)
                     </span>
                   )}
                 </div>
