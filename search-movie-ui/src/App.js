@@ -56,10 +56,6 @@ function App() {
   };
 
   const removeFavoriteMovie = (movie) => {
-    const newFavorites = [...(favorites || [])];
-    console.log("click removeFavoriteMovie - favourites:", newFavorites);
-    console.log("movie", movie);
-
     const existingFavorites = favorites?.filter(
       (favorite) => favorite.imdbID !== movie.imdbID
     );
