@@ -16,6 +16,7 @@ form {
   width: $full-width;
   display: flex;
   flex-direction: column;
+  margin-bottom: 40px;
 
   @media only screen and (min-width: $breakpoint-tablet) {
     width: 60%;

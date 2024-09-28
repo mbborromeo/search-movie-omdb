@@ -84,9 +84,6 @@ function App() {
         <button type="submit">Search Movie</button>
       </form>
 
-      <br />
-      <br />
-
       <div className="presentation">
         <div className="message">
           {loading && (
