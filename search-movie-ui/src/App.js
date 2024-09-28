@@ -56,9 +56,15 @@ function App() {
   };
 
   const removeFavoriteMovie = (movie) => {
+    const newFavorites = [...(favorites || [])];
+    console.log("click removeFavoriteMovie - favourites:", newFavorites);
+    console.log("movie", movie);
+
     const existingFavorites = favorites.filter(
       (favorite) => favorite.imdbID !== movie.imdbID
     );
+    console.log("existingFavorites:", existingFavorites);
+
     setFavorites(existingFavorites);
     saveToLocalStorage(existingFavorites);
   };
@@ -244,11 +250,8 @@ function App() {
           {/* list of favourite movies (saved on localStorage) */}
           <MovieCard
             movies={favorites}
-            // buttonRemove={IconRemoveFavorite}
-            // handleClick={() => {
-            //   console.log("clicked remove");
-            //   removeFavoriteMovie(data);
-            // }}
+            buttonRemove={IconRemoveFavorite}
+            handleClick={removeFavoriteMovie}
           />
         </div>
       </div>
