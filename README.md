@@ -1,7 +1,5 @@
 # search-movie-assignment
 
-REST API call to OMDB
-
 This assignment/project lets user's search for a movie by title. It sends a request to OMDB API to get the movie data and poster image.
 
 This is a Full-Stack project, so there is a client folder and server folder:
