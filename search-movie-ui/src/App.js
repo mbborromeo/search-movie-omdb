@@ -43,7 +43,7 @@ function App() {
     const newFavorites = [...(favorites || [])];
 
     console.log("local favorites", favorites);
-    const found = favorites.find((element) => element.imdbID === movie.imdbID);
+    const found = favorites?.find((element) => element.imdbID === movie.imdbID);
     console.log("found", found);
 
     // add movie to favorites array using push method
@@ -60,7 +60,7 @@ function App() {
     console.log("click removeFavoriteMovie - favourites:", newFavorites);
     console.log("movie", movie);
 
-    const existingFavorites = favorites.filter(
+    const existingFavorites = favorites?.filter(
       (favorite) => favorite.imdbID !== movie.imdbID
     );
     console.log("existingFavorites:", existingFavorites);
