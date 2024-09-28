@@ -4,6 +4,13 @@ $full-width: 94%;
 $image-width-desktop: 300px;
 $image-height-desktop: 447px;
 
+/* Mixin Functions */
+@mixin for-tablet-and-wider {
+  @media only screen and (min-width: $breakpoint-tablet) { 
+    @content; 
+  }
+}
+
 /* Global Styles */
 .App {
   display: flex;
@@ -18,7 +25,7 @@ form {
   flex-direction: column;
   margin-bottom: 40px;
 
-  @media only screen and (min-width: $breakpoint-tablet) {
+  @include for-tablet-and-wider {
     width: 60%;
     flex-direction: row;
     justify-content: space-between;
@@ -33,7 +40,7 @@ input {
   font-weight: 500;
   margin-bottom: 2rem;
 
-  @media only screen and (min-width: $breakpoint-tablet) {
+  @include for-tablet-and-wider {
     width: 60%;
     margin-bottom: 0;
   }
@@ -50,7 +57,7 @@ button {
     background-color: #c5c5c5;
   }
 
-  @media only screen and (min-width: $breakpoint-tablet) {
+  @include for-tablet-and-wider {
     width: 34%;
   }
 }
@@ -79,7 +86,7 @@ ul {
 .presentation {
   width: $full-width;
 
-  @media only screen and (min-width: $breakpoint-tablet) {
+  @include for-tablet-and-wider {
     width: 70%;
   }
 }
@@ -140,7 +147,7 @@ ul {
   &.row-2 {
     margin-bottom: 20px;
 
-    @media only screen and (min-width: $breakpoint-tablet) {
+    @include for-tablet-and-wider {
       flex-direction: row;
     }
   }
@@ -150,10 +157,9 @@ ul {
   width: auto;
 
   &.col-1 {
-    // background-color: grey;
     margin-bottom: 7px;
 
-    @media only screen and (min-width: $breakpoint-tablet) {
+    @include for-tablet-and-wider {
       padding-right: 22px;
     }
   }
@@ -172,7 +178,7 @@ ul {
     min-height: $image-height-desktop;
     height: auto;
 
-    @media only screen and (min-width: $breakpoint-tablet) {
+    @include for-tablet-and-wider {
       width: $image-width-desktop; /* hardcoded so layout doesn't shift while image is loading */
     }
   }
@@ -184,7 +190,6 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  // border: 1px solid blue;
 }
 
 #loading-gif {
@@ -192,7 +197,6 @@ ul {
   height: auto;
   object-position: center center;
   object-fit: scale-down;
-  // border: 1px solid red;    
 }
 
 .field-value {
