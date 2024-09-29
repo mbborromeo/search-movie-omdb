@@ -1,7 +1,6 @@
-import React from "react";
-import "./FavouriteButtons.scss";
+import "./ButtonRemove.scss";
 
-export const IconRemoveFavorite = () => {
+const ButtonRemove = () => {
   return (
     <>
       <svg
@@ -22,3 +21,5 @@ export const IconRemoveFavorite = () => {
     </>
   );
 };
+
+export default ButtonRemove;

@@ -3,7 +3,7 @@ import "./MovieCards.scss";
 const MovieCard = ({ movies, buttonRemove: ButtonRemove, handleClick }) => {
   return (
     <div className="fav-container">
-      {movies?.map((movie) => {
+      {movies.map((movie) => {
         return (
           // using regex to check if image in expected file type
           movie.Poster.match(/\.(jpeg|jpg|gif|png)$/) != null && (

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-import ListOfItems from "./components/ListOfItems";
-import MovieCards from "./components/MovieCards";
-import { IconRemoveFavorite } from "./components/FavouriteButtons";
+import ListItems from "./components/ListItems";
+import MovieCards from "./components/MovieCards/MovieCards";
+import ButtonRemove from "./components/Buttons/ButtonRemove";
 
 import {
   capitalizeFirstLetter,
@@ -52,7 +52,7 @@ function App() {
       copyOfFavourites = [movie, ...copyOfFavourites];
     }
 
-    // set to both React State and localStorage
+    // save to both React State and localStorage
     setFavorites(copyOfFavourites);
     saveToLocalStorage(copyOfFavourites);
   };
@@ -62,6 +62,7 @@ function App() {
       (favorite) => favorite.imdbID !== movie.imdbID
     );
 
+    // save to both React State and localStorage
     setFavorites(favouritesAmmended);
     saveToLocalStorage(favouritesAmmended);
   };
@@ -116,16 +117,22 @@ function App() {
         <button type="submit">Search Movie</button>
       </form>
 
-      <div className="presentation">
-        <div className="row row-1">
-          {(loading || (!loading && data && data.Response === "False")) && (
-            <div className="message">
-              <p>{message}</p>
-            </div>
-          )}
+      {(loading || (!loading && data && data.Response === "False")) && (
+        <div className="message">
+          <p>{message}</p>
+        </div>
+      )}
 
-          {!loading && data && data.Response === "True" && (
-            <>
+      {loading && (
+        <div className="loading-wrapper">
+          <img id="loading-gif" src={loadingImage} alt="loading" />
+        </div>
+      )}
+
+      <div className="presentation">
+        {!loading && data && data.Response === "True" && (
+          <>
+            <div className="row row-1">
               <h1>{data.Title}</h1>
               <ul className="inline-list details-bar">
                 {data.Type !== "movie" && (
@@ -135,20 +142,10 @@ function App() {
                 {hasData(data.Rated) && <li>{data.Rated}</li>}
                 {hasData(data.Runtime) && <li>{data.Runtime}</li>}
               </ul>
-            </>
-          )}
-          <hr />
-        </div>
-
-        <div className="row row-2">
-          {loading && (
-            <div className="loading-wrapper">
-              <img id="loading-gif" src={loadingImage} alt="loading" />
+              <hr />
             </div>
-          )}
 
-          {!loading && data && data.Response === "True" && (
-            <>
+            <div className="row row-2">
               {hasData(data.Poster) && (
                 <div className="column col-1">
                   <img
@@ -161,7 +158,7 @@ function App() {
 
               <div className="column col-2">
                 {hasData(data.Genre) && (
-                  <ListOfItems
+                  <ListItems
                     items={stringToArray(data.Genre)}
                     classname="pills-container"
                   />
@@ -172,7 +169,7 @@ function App() {
                 {hasData(data.Director) && (
                   <div className="field-value">
                     <span className="field">Director:</span>
-                    <ListOfItems
+                    <ListItems
                       items={stringToArray(data.Director)}
                       classname="inline-list"
                     />
@@ -182,7 +179,7 @@ function App() {
                 {hasData(data.Writer) && (
                   <div className="field-value">
                     <span className="field">Writer:</span>
-                    <ListOfItems
+                    <ListItems
                       items={stringToArray(data.Writer)}
                       classname="inline-list"
                     />
@@ -192,7 +189,7 @@ function App() {
                 {hasData(data.Actors) && (
                   <div className="field-value">
                     <span className="field">Actors:</span>
-                    <ListOfItems
+                    <ListItems
                       items={stringToArray(data.Actors)}
                       classname="inline-list"
                     />
@@ -236,20 +233,22 @@ function App() {
                   </button>
                 </div>
               </div>
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
 
         <div className="row row-3">
           <hr />
           <h2>Favourites</h2>
 
-          {/* list of favourite movies saved on localStorage */}
-          <MovieCards
-            movies={favorites}
-            buttonRemove={IconRemoveFavorite}
-            handleClick={removeFavoriteMovie}
-          />
+          {/* list of favourite movies saved on localStorage & state */}
+          {favorites.length > 0 && (
+            <MovieCards
+              movies={favorites}
+              buttonRemove={ButtonRemove}
+              handleClick={removeFavoriteMovie}
+            />
+          )}
         </div>
       </div>
     </div>
