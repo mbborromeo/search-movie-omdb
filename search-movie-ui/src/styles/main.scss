@@ -189,14 +189,14 @@ ul {
 
 .loading-wrapper {
   width: 100%;
-  min-height: 256px;
+  // min-height: 256px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 #loading-gif {
-  width: 50%;
+  // width: 50%;
   height: auto;
   object-position: center center;
   object-fit: scale-down;

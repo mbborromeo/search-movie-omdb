@@ -1,4 +1,4 @@
-const ListOfItems = ({ items, classname }) => {
+const ListItems = ({ items, classname }) => {
   return (
     <ul className={classname ? classname : ""}>
       {items.map((item) => (
@@ -8,4 +8,4 @@ const ListOfItems = ({ items, classname }) => {
   );
 };
 
-export default ListOfItems;
+export default ListItems;
