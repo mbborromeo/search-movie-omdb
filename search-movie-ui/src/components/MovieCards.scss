@@ -18,6 +18,12 @@
   position: relative;
   transition: transform 0.2s;
 
+  &:hover {
+    .overlay-container {
+      opacity: 1;
+    }
+  }
+
   @include for-tablet-and-wider {
     width: 24%;
   }
@@ -35,10 +41,6 @@
   position: absolute;
   left: 10px;
   top: 10px;
-}
-
-.movie-frame:hover .overlay-container {
-  opacity: 1;
 }
 
 .overlay-container {
