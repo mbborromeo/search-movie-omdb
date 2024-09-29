@@ -19,6 +19,8 @@
   transition: transform 0.2s;
 
   &:hover {
+    cursor: pointer;
+
     .overlay-container {
       opacity: 1;
     }

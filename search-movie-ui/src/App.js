@@ -23,6 +23,10 @@ function App() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState([]);
+  const [viewMovieFromFavs, setViewMovieFromFavs] = useState(false);
+
+  console.log("viewMovieFromFavs:", viewMovieFromFavs);
+  console.log("data:", data);
 
   // checking if HTML5 localStorage has an item with key "omdb-movie-app"
   useEffect(() => {
@@ -66,6 +70,14 @@ function App() {
     saveToLocalStorage(favouritesAmmended);
   };
 
+  const viewFavoriteMovie = (movie) => {
+    console.log("viewFavoriteMovie movie to view:", movie);
+
+    // load presentation area with movie details
+    setViewMovieFromFavs(true);
+    setData(movie);
+  };
+
   let handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -77,6 +89,7 @@ function App() {
       setMessage(`Searching for movie "${title}"...`);
       setData({});
       setLoading(true);
+      setViewMovieFromFavs(false);
 
       try {
         // Connect with the relevant backend for live data.
@@ -124,7 +137,8 @@ function App() {
             </div>
           )}
 
-          {!loading && data && data.Response === "True" && (
+          {(viewMovieFromFavs ||
+            (!loading && data && data.Response === "True")) && (
             <>
               <h1>{data.Title}</h1>
               <ul className="inline-list details-bar">
@@ -147,7 +161,8 @@ function App() {
             </div>
           )}
 
-          {!loading && data && data.Response === "True" && (
+          {(viewMovieFromFavs ||
+            (!loading && data && data.Response === "True")) && (
             <>
               {hasData(data.Poster) && (
                 <div className="column col-1">
@@ -248,7 +263,8 @@ function App() {
           <MovieCards
             movies={favorites}
             buttonRemove={IconRemoveFavorite}
-            handleClick={removeFavoriteMovie}
+            clickHandlerRemove={removeFavoriteMovie}
+            clickHandlerView={viewFavoriteMovie}
           />
         </div>
       </div>
