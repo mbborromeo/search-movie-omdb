@@ -1,13 +1,24 @@
 import "./MovieCards.scss";
 
-const MovieCard = ({ movies, buttonRemove: ButtonRemove, handleClick }) => {
+const MovieCards = ({
+  movies,
+  buttonRemove: ButtonRemove,
+  clickHandlerRemove,
+  clickHandlerView,
+}) => {
   return (
     <div className="fav-container">
-      {movies.map((movie) => {
+      {movies?.map((movie) => {
         return (
           // using regex to check if image in expected file type
           movie.Poster.match(/\.(jpeg|jpg|gif|png)$/) != null && (
-            <div className="movie-frame" key={movie.imdbID}>
+            <div
+              className="movie-frame"
+              key={movie.imdbID}
+              onClick={() => {
+                clickHandlerView(movie);
+              }}
+            >
               <img
                 className="movie-image"
                 src={movie.Poster}
@@ -16,7 +27,7 @@ const MovieCard = ({ movies, buttonRemove: ButtonRemove, handleClick }) => {
 
               <div
                 className="overlay-container"
-                onClick={() => handleClick(movie)}
+                onClick={(e) => clickHandlerRemove(movie, e)}
               >
                 <ButtonRemove />
               </div>
@@ -28,4 +39,4 @@ const MovieCard = ({ movies, buttonRemove: ButtonRemove, handleClick }) => {
   );
 };
 
-export default MovieCard;
+export default MovieCards;

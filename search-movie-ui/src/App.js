@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import ListItems from "./components/ListItems";
+import ListItems from "./components/ListItems/ListItems";
 import MovieCards from "./components/MovieCards/MovieCards";
 import ButtonRemove from "./components/Buttons/ButtonRemove";
 
@@ -23,6 +23,10 @@ function App() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState([]);
+  const [viewMovieFromFavs, setViewMovieFromFavs] = useState(false);
+
+  console.log("viewMovieFromFavs:", viewMovieFromFavs);
+  console.log("data:", data);
 
   // checking if HTML5 localStorage has an item with key "omdb-movie-app"
   useEffect(() => {
@@ -57,7 +61,12 @@ function App() {
     saveToLocalStorage(copyOfFavourites);
   };
 
-  const removeFavoriteMovie = (movie) => {
+  const removeFavoriteMovie = (movie, ev) => {
+    // prevent click event going through to parent
+    if (ev && ev.stopPropagation) {
+      ev.stopPropagation();
+    }
+
     const favouritesAmmended = favorites?.filter(
       (favorite) => favorite.imdbID !== movie.imdbID
     );
@@ -65,6 +74,14 @@ function App() {
     // save to both React State and localStorage
     setFavorites(favouritesAmmended);
     saveToLocalStorage(favouritesAmmended);
+  };
+
+  const viewFavoriteMovie = (movie) => {
+    console.log("viewFavoriteMovie movie to view:", movie);
+
+    // load presentation area with movie details
+    setViewMovieFromFavs(true);
+    setData(movie);
   };
 
   let handleSubmit = async (e) => {
@@ -78,6 +95,7 @@ function App() {
       setMessage(`Searching for movie "${title}"...`);
       setData({});
       setLoading(true);
+      setViewMovieFromFavs(false);
 
       try {
         // Connect with the relevant backend for live data.
@@ -130,7 +148,8 @@ function App() {
       )}
 
       <div className="presentation">
-        {!loading && data && data.Response === "True" && (
+        {((viewMovieFromFavs && data) ||
+          (!loading && data && data.Response === "True")) && (
           <>
             <div className="row row-1">
               <h1>{data.Title}</h1>
@@ -155,101 +174,102 @@ function App() {
                   />
                 </div>
               )}
+            </div>
 
-              <div className="column col-2">
-                {hasData(data.Genre) && (
-                  <ListItems
-                    items={stringToArray(data.Genre)}
-                    classname="pills-container"
-                  />
-                )}
+            <div className="column col-2">
+              {hasData(data.Genre) && (
+                <ListItems
+                  items={stringToArray(data.Genre)}
+                  classname="pills-container"
+                />
+              )}
 
-                {hasData(data.Plot) && <p>{data.Plot}</p>}
+              {hasData(data.Plot) && <p>{data.Plot}</p>}
 
-                {hasData(data.Director) && (
-                  <div className="field-value">
-                    <span className="field">Director:</span>
-                    <ListItems
-                      items={stringToArray(data.Director)}
-                      classname="inline-list"
-                    />
-                  </div>
-                )}
-
-                {hasData(data.Writer) && (
-                  <div className="field-value">
-                    <span className="field">Writer:</span>
-                    <ListItems
-                      items={stringToArray(data.Writer)}
-                      classname="inline-list"
-                    />
-                  </div>
-                )}
-
-                {hasData(data.Actors) && (
-                  <div className="field-value">
-                    <span className="field">Actors:</span>
-                    <ListItems
-                      items={stringToArray(data.Actors)}
-                      classname="inline-list"
-                    />
-                  </div>
-                )}
-
-                {hasData(data.Language) && (
-                  <div className="field-value">
-                    <span className="field">Language:</span>
-                    {data.Language}
-                  </div>
-                )}
-
+              {hasData(data.Director) && (
                 <div className="field-value">
-                  {hasData(data.imdbRating) && (
-                    <>
-                      <span className="field">IMDB Rating:</span>
-                      {data.imdbRating}/10
-                    </>
-                  )}
-                  {hasData(data.imdbVotes) && (
-                    <span className="votes">
-                      ({formatNumberOfVotes(data.imdbVotes)} votes)
-                    </span>
-                  )}
+                  <span className="field">Director:</span>
+                  <ListItems
+                    items={stringToArray(data.Director)}
+                    classname="inline-list"
+                  />
                 </div>
+              )}
 
-                {hasData(data.Awards) && (
-                  <div className="field-value">
-                    <span className="field">Awards:</span>
-                    {data.Awards}
-                  </div>
+              {hasData(data.Writer) && (
+                <div className="field-value">
+                  <span className="field">Writer:</span>
+                  <ListItems
+                    items={stringToArray(data.Writer)}
+                    classname="inline-list"
+                  />
+                </div>
+              )}
+
+              {hasData(data.Actors) && (
+                <div className="field-value">
+                  <span className="field">Actors:</span>
+                  <ListItems
+                    items={stringToArray(data.Actors)}
+                    classname="inline-list"
+                  />
+                </div>
+              )}
+
+              {hasData(data.Language) && (
+                <div className="field-value">
+                  <span className="field">Language:</span>
+                  {data.Language}
+                </div>
+              )}
+
+              <div className="field-value">
+                {hasData(data.imdbRating) && (
+                  <>
+                    <span className="field">IMDB Rating:</span>
+                    {data.imdbRating}/10
+                  </>
                 )}
+                {hasData(data.imdbVotes) && (
+                  <span className="votes">
+                    ({formatNumberOfVotes(data.imdbVotes)} votes)
+                  </span>
+                )}
+              </div>
 
-                <div className="cta-placeholder">
-                  <button
-                    className="btn-add"
-                    onClick={() => addFavoriteMovie(data)}
-                  >
-                    Add to Favourites
-                  </button>
+              {hasData(data.Awards) && (
+                <div className="field-value">
+                  <span className="field">Awards:</span>
+                  {data.Awards}
                 </div>
+              )}
+
+              <div className="cta-placeholder">
+                <button
+                  className="btn-add"
+                  onClick={() => addFavoriteMovie(data)}
+                >
+                  Add to Favourites
+                </button>
               </div>
             </div>
           </>
         )}
+      </div>
 
-        <div className="row row-3">
-          <hr />
-          <h2>Favourites</h2>
+      <div className="row row-3">
+        <hr />
+        <h2>Favourites</h2>
 
-          {/* list of favourite movies saved on localStorage & state */}
-          {favorites.length > 0 && (
-            <MovieCards
-              movies={favorites}
-              buttonRemove={ButtonRemove}
-              handleClick={removeFavoriteMovie}
-            />
-          )}
-        </div>
+        {/* list of favourite movies saved on localStorage & state */}
+        {favorites.length > 0 && (
+          <MovieCards
+            movies={favorites}
+            buttonRemove={ButtonRemove}
+            clickHandlerRemove={removeFavoriteMovie}
+            clickHandlerView={viewFavoriteMovie}
+          />
+        )}
       </div>
     </div>
   );
