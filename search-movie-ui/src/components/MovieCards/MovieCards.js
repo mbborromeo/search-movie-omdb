@@ -1,6 +1,6 @@
 import "./MovieCards.scss";
 
-const MovieCard = ({
+const MovieCards = ({
   movies,
   buttonRemove: ButtonRemove,
   clickHandlerRemove,
@@ -27,7 +27,7 @@ const MovieCard = ({
 
               <div
                 className="overlay-container"
-                onClick={() => clickHandlerRemove(movie)}
+                onClick={(e) => clickHandlerRemove(movie, e)}
               >
                 <ButtonRemove />
               </div>
@@ -39,4 +39,4 @@ const MovieCard = ({
   );
 };
 
-export default MovieCard;
+export default MovieCards;
