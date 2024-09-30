@@ -174,102 +174,102 @@ function App() {
                   />
                 </div>
               )}
-            </div>
 
-            <div className="column col-2">
-              {hasData(data.Genre) && (
-                <ListItems
-                  items={stringToArray(data.Genre)}
-                  classname="pills-container"
-                />
-              )}
-
-              {hasData(data.Plot) && <p>{data.Plot}</p>}
-
-              {hasData(data.Director) && (
-                <div className="field-value">
-                  <span className="field">Director:</span>
+              <div className="column col-2">
+                {hasData(data.Genre) && (
                   <ListItems
-                    items={stringToArray(data.Director)}
-                    classname="inline-list"
+                    items={stringToArray(data.Genre)}
+                    classname="pills-container"
                   />
-                </div>
-              )}
-
-              {hasData(data.Writer) && (
-                <div className="field-value">
-                  <span className="field">Writer:</span>
-                  <ListItems
-                    items={stringToArray(data.Writer)}
-                    classname="inline-list"
-                  />
-                </div>
-              )}
-
-              {hasData(data.Actors) && (
-                <div className="field-value">
-                  <span className="field">Actors:</span>
-                  <ListItems
-                    items={stringToArray(data.Actors)}
-                    classname="inline-list"
-                  />
-                </div>
-              )}
-
-              {hasData(data.Language) && (
-                <div className="field-value">
-                  <span className="field">Language:</span>
-                  {data.Language}
-                </div>
-              )}
-
-              <div className="field-value">
-                {hasData(data.imdbRating) && (
-                  <>
-                    <span className="field">IMDB Rating:</span>
-                    {data.imdbRating}/10
-                  </>
                 )}
-                {hasData(data.imdbVotes) && (
-                  <span className="votes">
-                    ({formatNumberOfVotes(data.imdbVotes)} votes)
-                  </span>
+
+                {hasData(data.Plot) && <p>{data.Plot}</p>}
+
+                {hasData(data.Director) && (
+                  <div className="field-value">
+                    <span className="field">Director:</span>
+                    <ListItems
+                      items={stringToArray(data.Director)}
+                      classname="inline-list"
+                    />
+                  </div>
                 )}
-              </div>
 
-              {hasData(data.Awards) && (
+                {hasData(data.Writer) && (
+                  <div className="field-value">
+                    <span className="field">Writer:</span>
+                    <ListItems
+                      items={stringToArray(data.Writer)}
+                      classname="inline-list"
+                    />
+                  </div>
+                )}
+
+                {hasData(data.Actors) && (
+                  <div className="field-value">
+                    <span className="field">Actors:</span>
+                    <ListItems
+                      items={stringToArray(data.Actors)}
+                      classname="inline-list"
+                    />
+                  </div>
+                )}
+
+                {hasData(data.Language) && (
+                  <div className="field-value">
+                    <span className="field">Language:</span>
+                    {data.Language}
+                  </div>
+                )}
+
                 <div className="field-value">
-                  <span className="field">Awards:</span>
-                  {data.Awards}
+                  {hasData(data.imdbRating) && (
+                    <>
+                      <span className="field">IMDB Rating:</span>
+                      {data.imdbRating}/10
+                    </>
+                  )}
+                  {hasData(data.imdbVotes) && (
+                    <span className="votes">
+                      ({formatNumberOfVotes(data.imdbVotes)} votes)
+                    </span>
+                  )}
                 </div>
-              )}
 
-              <div className="cta-placeholder">
-                <button
-                  className="btn-add"
-                  onClick={() => addFavoriteMovie(data)}
-                >
-                  Add to Favourites
-                </button>
+                {hasData(data.Awards) && (
+                  <div className="field-value">
+                    <span className="field">Awards:</span>
+                    {data.Awards}
+                  </div>
+                )}
+
+                <div className="cta-placeholder">
+                  <button
+                    className="btn-add"
+                    onClick={() => addFavoriteMovie(data)}
+                  >
+                    Add to Favourites
+                  </button>
+                </div>
               </div>
             </div>
           </>
         )}
-      </div>
 
-      <div className="row row-3">
-        <hr />
-        <h2>Favourites</h2>
+        <div className="row row-3">
+          <hr />
+          <h2>Favourites</h2>
 
-        {/* list of favourite movies saved on localStorage & state */}
-        {favorites.length > 0 && (
-          <MovieCards
-            movies={favorites}
-            buttonRemove={ButtonRemove}
-            clickHandlerRemove={removeFavoriteMovie}
-            clickHandlerView={viewFavoriteMovie}
-          />
-        )}
+          {/* list of favourite movies saved on localStorage & state */}
+          {favorites.length > 0 && (
+            <MovieCards
+              movies={favorites}
+              buttonRemove={ButtonRemove}
+              clickHandlerRemove={removeFavoriteMovie}
+              clickHandlerView={viewFavoriteMovie}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
