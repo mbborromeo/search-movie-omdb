@@ -8,10 +8,9 @@ const MovieCards = ({
 }) => {
   return (
     <div className="fav-container">
-      {movies?.map((movie) => {
-        return (
-          // using regex to check if image in expected file type
-          movie.Poster.match(/\.(jpeg|jpg|gif|png)$/) != null && (
+      {movies &&
+        movies.map((movie) => {
+          return (
             <div
               className="movie-frame"
               key={movie.imdbID}
@@ -19,12 +18,19 @@ const MovieCards = ({
                 clickHandlerView(movie);
               }}
             >
-              <img
-                className="movie-image"
-                src={movie.Poster}
-                alt={movie.Title}
-              />
+              {
+                /* using regex to check if image in expected file type */
+                movie.Poster &&
+                  movie.Poster.match(/\.(jpeg|jpg|gif|png)$/) != null && (
+                    <img
+                      className="movie-image"
+                      src={movie.Poster}
+                      alt={movie.Title}
+                    />
+                  )
+              }
 
+              {/* <p>{movie.Title}</p> */}
               <div
                 className="overlay-container"
                 onClick={(e) => clickHandlerRemove(movie, e)}
@@ -32,9 +38,8 @@ const MovieCards = ({
                 <ButtonRemove />
               </div>
             </div>
-          )
-        );
-      })}
+          );
+        })}
     </div>
   );
 };
