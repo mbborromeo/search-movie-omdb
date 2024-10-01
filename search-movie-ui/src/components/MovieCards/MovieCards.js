@@ -1,40 +1,41 @@
+import ButtonRemove from "../Buttons/ButtonRemove";
 import "./MovieCards.scss";
 
-const MovieCards = ({
-  movies,
-  buttonRemove: ButtonRemove,
-  clickHandlerRemove,
-  clickHandlerView,
-}) => {
+const MovieCards = ({ movies, clickHandlerRemove, clickHandlerView }) => {
   return (
     <div className="fav-container">
-      {movies?.map((movie) => {
-        return (
-          // using regex to check if image in expected file type
-          movie.Poster.match(/\.(jpeg|jpg|gif|png)$/) != null && (
-            <div
-              className="movie-frame"
-              key={movie.imdbID}
-              onClick={() => {
-                clickHandlerView(movie);
-              }}
-            >
-              <img
-                className="movie-image"
-                src={movie.Poster}
-                alt={movie.Title}
+      {movies &&
+        movies.map((movie) => {
+          return (
+            <div className="movie-frame" key={movie.imdbID}>
+              {
+                /* using regex to check if image in expected file type */
+                movie.Poster &&
+                  movie.Poster.match(/\.(jpeg|jpg|gif|png)$/) != null && (
+                    <img
+                      className="movie-image"
+                      src={movie.Poster}
+                      alt={movie.Title}
+                    />
+                  )
+              }
+
+              <ButtonRemove
+                clickHandler={(e) => clickHandlerRemove(movie, e)}
               />
 
               <div
                 className="overlay-container"
-                onClick={(e) => clickHandlerRemove(movie, e)}
+                title="View"
+                onClick={() => {
+                  clickHandlerView(movie);
+                }}
               >
-                <ButtonRemove />
+                <p>{movie.Title}</p>
               </div>
             </div>
-          )
-        );
-      })}
+          );
+        })}
     </div>
   );
 };

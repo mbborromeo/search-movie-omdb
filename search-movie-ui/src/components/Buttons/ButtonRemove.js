@@ -1,8 +1,8 @@
 import "./ButtonRemove.scss";
 
-const ButtonRemove = () => {
+const ButtonRemove = ({ clickHandler }) => {
   return (
-    <>
+    <span onClick={clickHandler}>
       <svg
         className="close-icon"
         width="40px"
@@ -10,7 +10,9 @@ const ButtonRemove = () => {
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        role="img"
       >
+        <title id="btnRemove">Remove</title>
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -18,7 +20,7 @@ const ButtonRemove = () => {
           fill="#0F1729"
         />
       </svg>
-    </>
+    </span>
   );
 };
 
