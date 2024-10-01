@@ -7,13 +7,7 @@ const MovieCards = ({ movies, clickHandlerRemove, clickHandlerView }) => {
       {movies &&
         movies.map((movie) => {
           return (
-            <div
-              className="movie-frame"
-              key={movie.imdbID}
-              onClick={() => {
-                clickHandlerView(movie);
-              }}
-            >
+            <div className="movie-frame" key={movie.imdbID}>
               {
                 /* using regex to check if image in expected file type */
                 movie.Poster &&
@@ -26,11 +20,18 @@ const MovieCards = ({ movies, clickHandlerRemove, clickHandlerView }) => {
                   )
               }
 
-              {/* <p>{movie.Title}</p> */}
-              <div className="overlay-container">
-                <ButtonRemove
-                  clickHandler={(e) => clickHandlerRemove(movie, e)}
-                />
+              <ButtonRemove
+                clickHandler={(e) => clickHandlerRemove(movie, e)}
+              />
+
+              <div
+                className="overlay-container"
+                title="View"
+                onClick={() => {
+                  clickHandlerView(movie);
+                }}
+              >
+                <p>{movie.Title}</p>
               </div>
             </div>
           );

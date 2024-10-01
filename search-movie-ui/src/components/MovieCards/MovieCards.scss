@@ -19,8 +19,6 @@
   transition: transform 0.2s;
 
   &:hover {
-    cursor: pointer;
-
     .overlay-container {
       opacity: 1;
     }
@@ -50,7 +48,9 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  background: rgba(0, 0, 0, 0.8);
+  // background: rgba(0, 0, 0, 0.8);
+  background: white;
+
   width: 100%;
   transition: 0.5s ease;
   opacity: 0;
