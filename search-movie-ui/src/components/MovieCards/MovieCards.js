@@ -1,11 +1,7 @@
+import ButtonRemove from "../Buttons/ButtonRemove";
 import "./MovieCards.scss";
 
-const MovieCards = ({
-  movies,
-  buttonRemove: ButtonRemove,
-  clickHandlerRemove,
-  clickHandlerView,
-}) => {
+const MovieCards = ({ movies, clickHandlerRemove, clickHandlerView }) => {
   return (
     <div className="fav-container">
       {movies &&
@@ -31,11 +27,10 @@ const MovieCards = ({
               }
 
               {/* <p>{movie.Title}</p> */}
-              <div
-                className="overlay-container"
-                onClick={(e) => clickHandlerRemove(movie, e)}
-              >
-                <ButtonRemove />
+              <div className="overlay-container">
+                <ButtonRemove
+                  clickHandler={(e) => clickHandlerRemove(movie, e)}
+                />
               </div>
             </div>
           );

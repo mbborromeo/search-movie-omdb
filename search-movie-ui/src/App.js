@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 import ListItems from "./components/ListItems/ListItems";
 import MovieCards from "./components/MovieCards/MovieCards";
-import ButtonRemove from "./components/Buttons/ButtonRemove";
 
 import {
   capitalizeFirstLetter,
@@ -24,9 +23,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [viewMovieFromFavs, setViewMovieFromFavs] = useState(false);
-
-  console.log("viewMovieFromFavs:", viewMovieFromFavs);
-  console.log("data:", data);
 
   // checking if HTML5 localStorage has an item with key "omdb-movie-app"
   useEffect(() => {
@@ -62,6 +58,7 @@ function App() {
   };
 
   const removeFavoriteMovie = (movie, ev) => {
+    console.log("removeFavoriteMovie CLICK!!!");
     // prevent click event going through to parent
     if (ev && ev.stopPropagation) {
       ev.stopPropagation();
@@ -77,8 +74,6 @@ function App() {
   };
 
   const viewFavoriteMovie = (movie) => {
-    console.log("viewFavoriteMovie movie to view:", movie);
-
     // load presentation area with movie details
     setViewMovieFromFavs(true);
     setData(movie);
@@ -264,7 +259,6 @@ function App() {
           {favorites.length > 0 && (
             <MovieCards
               movies={favorites}
-              buttonRemove={ButtonRemove}
               clickHandlerRemove={removeFavoriteMovie}
               clickHandlerView={viewFavoriteMovie}
             />
