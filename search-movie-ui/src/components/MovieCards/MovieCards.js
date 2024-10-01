@@ -19,19 +19,22 @@ const MovieCards = ({ movies, clickHandlerRemove, clickHandlerView }) => {
                     />
                   )
               }
-
               <ButtonRemove
                 clickHandler={(e) => clickHandlerRemove(movie, e)}
               />
 
-              <div
-                className="overlay-container"
-                title="View"
-                onClick={() => {
-                  clickHandlerView(movie);
-                }}
-              >
-                <p>{movie.Title}</p>
+              <div className="overlay-container">
+                {movie.Title}
+
+                <button
+                  id="btn-view"
+                  title="View"
+                  onClick={() => {
+                    clickHandlerView(movie);
+                  }}
+                >
+                  VIEW
+                </button>
               </div>
             </div>
           );

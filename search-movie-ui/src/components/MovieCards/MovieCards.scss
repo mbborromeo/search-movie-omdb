@@ -10,22 +10,34 @@
 }
 
 .movie-frame {
+  border: 1px solid lightgray;
   display: flex;
   align-items: stretch;
-  height: auto;
+  min-height: 250px; /* set height in case no movie image provided */
   width: 48%;
   margin-bottom: 10px;
   position: relative;
   transition: transform 0.2s;
 
   &:hover {
+    border: 1px solid lightseagreen;
+
     .overlay-container {
       opacity: 1;
     }
   }
 
+  /* for close button wrapper */
+  span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+  }
+
   @include for-tablet-and-wider {
     width: 24%;
+    min-height: 300px; /* set height in case no movie image provided */
   }
 }
 
@@ -48,18 +60,26 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  // background: rgba(0, 0, 0, 0.8);
-  background: white;
-
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  height: 100%;
   width: 100%;
   transition: 0.5s ease;
   opacity: 0;
   bottom: 0;
   font-size: 20px;
   text-align: center;
-  cursor: pointer;
 
-  &:hover {
-    background: lightseagreen;
+  #btn-view {
+    background: white;
+    border-radius: 0;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+
+    &:hover {
+      background: lightseagreen;
+    }
   }
 }

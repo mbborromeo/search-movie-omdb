@@ -58,7 +58,6 @@ function App() {
   };
 
   const removeFavoriteMovie = (movie, ev) => {
-    console.log("removeFavoriteMovie CLICK!!!");
     // prevent click event going through to parent
     if (ev && ev.stopPropagation) {
       ev.stopPropagation();
