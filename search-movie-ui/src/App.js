@@ -7,7 +7,7 @@ import ProgressiveImage from "./components/ProgressiveImage/ProgressiveImage";
 import {
   capitalizeFirstLetter,
   stringToArray,
-  trimAndReplaceSpaces,
+  trimReplaceSpacesQuotes,
   formatNumberOfVotes,
   hasData,
 } from "./util/utils";
@@ -83,7 +83,7 @@ function App() {
     e.preventDefault();
 
     // clean up string
-    const titleNoSpaces = trimAndReplaceSpaces(title);
+    const titleNoSpaces = trimReplaceSpacesQuotes(title);
 
     // check there is a valid search before submitting
     if (titleNoSpaces && titleNoSpaces !== previousSearch) {

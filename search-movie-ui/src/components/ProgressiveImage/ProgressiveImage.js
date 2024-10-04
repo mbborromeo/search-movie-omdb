@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 
 /* Resource: https://blog.logrocket.com/progressive-image-loading-react-tutorial */
 const ProgressiveImage = ({ placeholderSrc, src, alt, ...props }) => {
-  console.log("ProgressiveImage props passed thru state:", props);
-
   const [imgSrc, setImgSrc] = useState(placeholderSrc ? placeholderSrc : src);
 
   /* load an invisible image tag (not placed on page) for loading purposes */

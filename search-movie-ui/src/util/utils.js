@@ -8,8 +8,8 @@ export const stringToArray = (str) => {
   return arrayOfItems;
 };
 
-export const trimAndReplaceSpaces = (str) => {
-  return str.trim().replaceAll(" ", "+");
+export const trimReplaceSpacesQuotes = (str) => {
+  return str.trim().replaceAll(" ", "+").replaceAll("'", "`");
 };
 
 export const formatNumberOfVotes = (numberString) => {
