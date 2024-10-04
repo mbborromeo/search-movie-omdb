@@ -136,12 +136,6 @@ function App() {
         </div>
       )}
 
-      {loading && (
-        <div className="loading-wrapper">
-          <img id="loading-gif" src={loadingImage} alt="loading" />
-        </div>
-      )}
-
       <div className="presentation">
         {((viewMovieFromFavs && data) ||
           (!loading && data && data.Response === "True")) && (

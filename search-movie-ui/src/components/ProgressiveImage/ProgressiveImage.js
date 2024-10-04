@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 /* Resource: https://blog.logrocket.com/progressive-image-loading-react-tutorial */
-const ProgressiveImage = ({ placeholderSrc, src, ...props }) => {
+const ProgressiveImage = ({ placeholderSrc, src, alt, ...props }) => {
   console.log("ProgressiveImage props passed thru state:", props);
 
   const [imgSrc, setImgSrc] = useState(placeholderSrc ? placeholderSrc : src);
@@ -16,14 +16,17 @@ const ProgressiveImage = ({ placeholderSrc, src, ...props }) => {
     };
   }, [src]);
 
+  const customClass =
+    placeholderSrc && imgSrc === placeholderSrc ? "loading" : "";
+
   return (
     <img
-      // src={imgSrc}
-      {...{ src: imgSrc, alt: props.alt, ...props }}
-      // alt={props.alt}
-      // id={props.id}
-      // width={props.width}
-      // height={props.height}
+      {...{
+        src: imgSrc,
+        alt: alt, // needs to be explicitly defined for img
+        className: customClass,
+        ...props,
+      }}
     />
   );
 };
