@@ -181,8 +181,8 @@ ul {
     min-height: $image-height-desktop;
     height: auto;
     display: block; /* so takes up space even before it loads */
-    // background-color: yellow;
-    background-image: url('../images/loading.gif');
+    background-color: grey;
+    // background-image: url('../images/loading.gif');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 25%;
