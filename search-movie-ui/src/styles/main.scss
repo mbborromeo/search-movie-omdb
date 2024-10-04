@@ -180,6 +180,12 @@ ul {
     /* placeholder for image */
     min-height: $image-height-desktop;
     height: auto;
+    display: block; /* so takes up space even before it loads */
+    // background-color: yellow;
+    background-image: url('../images/loading.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 25%;
 
     @include for-tablet-and-wider {
       width: $image-width-desktop; /* hardcoded so layout doesn't shift while image is loading */
