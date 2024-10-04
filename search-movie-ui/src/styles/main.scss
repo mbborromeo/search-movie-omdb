@@ -175,37 +175,29 @@ ul {
     }
   }
 
-  img#poster {
-    width: 100%;
-    /* placeholder for image */
-    min-height: $image-height-desktop;
-    height: auto;
-    display: block; /* so takes up space even before it loads */
-    // background-color: yellow;
-    background-image: url('../images/loading.gif');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 25%;
+  img { 
+    &#poster {
+      width: 100%;
+      /* placeholder for image */
+      min-height: $image-height-desktop;
+      height: auto;
+      display: block; /* so takes up space even before it loads */
+      // background-color: grey;
+      // background-image: url('../images/loading.gif');
+      // background-repeat: no-repeat;
+      // background-position: center center;
+      // background-size: 25%;
 
-    @include for-tablet-and-wider {
-      width: $image-width-desktop; /* hardcoded so layout doesn't shift while image is loading */
+      &.loading {
+        object-position: center;
+        object-fit: none;
+      }
+
+      @include for-tablet-and-wider {
+        width: $image-width-desktop; /* hardcoded so layout doesn't shift while image is loading */
+      }
     }
   }
-}
-
-.loading-wrapper {
-  width: 100%;
-  // min-height: 256px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#loading-gif {
-  // width: 50%;
-  height: auto;
-  object-position: center center;
-  object-fit: scale-down;
 }
 
 .field-value {

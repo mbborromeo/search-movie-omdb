@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import ListItems from "./components/ListItems/ListItems";
 import MovieCards from "./components/MovieCards/MovieCards";
+import ProgressiveImage from "./components/ProgressiveImage/ProgressiveImage";
 
 import {
   capitalizeFirstLetter,
@@ -135,12 +136,6 @@ function App() {
         </div>
       )}
 
-      {loading && (
-        <div className="loading-wrapper">
-          <img id="loading-gif" src={loadingImage} alt="loading" />
-        </div>
-      )}
-
       <div className="presentation">
         {((viewMovieFromFavs && data) ||
           (!loading && data && data.Response === "True")) && (
@@ -161,10 +156,13 @@ function App() {
             <div className="row row-2">
               {hasData(data.Poster) && (
                 <div className="column col-1">
-                  <img
-                    id="poster"
+                  <ProgressiveImage
+                    placeholderSrc={loadingImage}
                     src={data.Poster}
                     alt={`Poster of ${data.Title}`}
+                    id="poster"
+                    // width="100"
+                    // height="100"
                   />
                 </div>
               )}
