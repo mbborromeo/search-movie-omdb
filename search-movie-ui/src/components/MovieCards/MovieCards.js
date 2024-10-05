@@ -1,5 +1,5 @@
-import ButtonRemove from "../Buttons/ButtonRemove";
-import "./MovieCards.scss";
+import ButtonRemove from '../Buttons/ButtonRemove';
+import './MovieCards.scss';
 
 const MovieCards = ({ movies, clickHandlerRemove, clickHandlerView }) => {
   return (

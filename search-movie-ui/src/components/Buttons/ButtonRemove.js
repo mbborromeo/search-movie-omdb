@@ -1,4 +1,4 @@
-import "./ButtonRemove.scss";
+import './ButtonRemove.scss';
 
 const ButtonRemove = ({ clickHandler }) => {
   return (
