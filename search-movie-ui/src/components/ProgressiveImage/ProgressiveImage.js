@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 /* Resource: https://blog.logrocket.com/progressive-image-loading-react-tutorial */
 const ProgressiveImage = ({ placeholderSrc, src, alt, ...props }) => {
@@ -15,7 +15,7 @@ const ProgressiveImage = ({ placeholderSrc, src, alt, ...props }) => {
   }, [src]);
 
   const customClass =
-    placeholderSrc && imgSrc === placeholderSrc ? "loading" : "";
+    placeholderSrc && imgSrc === placeholderSrc ? 'loading' : '';
 
   return (
     <img
@@ -23,7 +23,7 @@ const ProgressiveImage = ({ placeholderSrc, src, alt, ...props }) => {
         src: imgSrc,
         alt: alt, // needs to be explicitly defined for img
         className: customClass,
-        ...props,
+        ...props
       }}
     />
   );

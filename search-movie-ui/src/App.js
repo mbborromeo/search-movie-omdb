@@ -1,33 +1,33 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-import ListItems from "./components/ListItems/ListItems";
-import MovieCards from "./components/MovieCards/MovieCards";
-import ProgressiveImage from "./components/ProgressiveImage/ProgressiveImage";
+import ListItems from './components/ListItems/ListItems';
+import MovieCards from './components/MovieCards/MovieCards';
+import ProgressiveImage from './components/ProgressiveImage/ProgressiveImage';
 
 import {
   capitalizeFirstLetter,
   stringToArray,
   trimReplaceSpacesQuotes,
   formatNumberOfVotes,
-  hasData,
-} from "./util/utils";
+  hasData
+} from './util/utils';
 
-import "./styles/main.scss";
+import './styles/main.scss';
 
-import loadingImage from "./images/loading.gif";
+import loadingImage from './images/loading.gif';
 
 function App() {
-  const [title, setTitle] = useState("");
-  const [previousSearch, setPreviousSearch] = useState("");
+  const [title, setTitle] = useState('');
+  const [previousSearch, setPreviousSearch] = useState('');
   const [data, setData] = useState({});
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [viewMovieFromFavs, setViewMovieFromFavs] = useState(false);
 
   // checking if HTML5 localStorage has an item with key "omdb-movie-app"
   useEffect(() => {
-    const updatedFavorites = JSON.parse(localStorage.getItem("omdb-movie-app"));
+    const updatedFavorites = JSON.parse(localStorage.getItem('omdb-movie-app'));
 
     if (updatedFavorites) {
       setFavorites(updatedFavorites);
@@ -36,7 +36,7 @@ function App() {
 
   // saves item to HTML5 localStorage
   const saveToLocalStorage = (items) => {
-    localStorage.setItem("omdb-movie-app", JSON.stringify(items));
+    localStorage.setItem('omdb-movie-app', JSON.stringify(items));
   };
 
   // localStorage Resource: https://dev.to/willochs316/building-a-movie-app-with-react-and-ombd-api-a-step-by-step-guide-2p33#storing-api
@@ -100,7 +100,7 @@ function App() {
           })
           .then((data) => {
             // no results found
-            if (data.Response === "False") {
+            if (data.Response === 'False') {
               setMessage(`Results for "${title}": ${data.Error}`);
             }
 
@@ -108,7 +108,7 @@ function App() {
 
             // store previous search and reset title
             setPreviousSearch(titleNoSpaces);
-            setTitle("");
+            setTitle('');
             setLoading(false);
           });
       } catch (err) {
@@ -130,7 +130,7 @@ function App() {
         <button type="submit">Search Movie</button>
       </form>
 
-      {(loading || (!loading && data && data.Response === "False")) && (
+      {(loading || (!loading && data && data.Response === 'False')) && (
         <div className="message">
           <p>{message}</p>
         </div>
@@ -138,12 +138,12 @@ function App() {
 
       <div className="presentation">
         {((viewMovieFromFavs && data) ||
-          (!loading && data && data.Response === "True")) && (
+          (!loading && data && data.Response === 'True')) && (
           <>
             <div className="row row-1">
               <h1>{data.Title}</h1>
               <ul className="inline-list details-bar">
-                {data.Type !== "movie" && (
+                {data.Type !== 'movie' && (
                   <li>{capitalizeFirstLetter(data.Type)}</li>
                 )}
                 {hasData(data.Year) && <li>{data.Year}</li>}
