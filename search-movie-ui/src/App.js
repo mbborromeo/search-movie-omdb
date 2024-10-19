@@ -172,8 +172,6 @@ function App() {
                     src={data.Poster}
                     alt={`Poster of ${data.Title}`}
                     id="poster"
-                    // width="100"
-                    // height="100"
                   />
                 </div>
               )}
@@ -263,7 +261,6 @@ function App() {
           <hr />
           <h2>Favourites</h2>
 
-          {/* list of favourite movies saved on localStorage & state */}
           {favorites.length > 0 && (
             <MovieCards
               movies={favorites}
