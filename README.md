@@ -1,6 +1,6 @@
-# search-movie-assignment
+# search-movie-omdb
 
-This assignment/project lets user's search for a movie by title. It sends a request to OMDB API to get the movie data and poster image.
+This project lets user's search for a movie by title. It sends a request to OMDB API to get the movie data and poster image.
 
 This is a Full-Stack project, so there is a client folder and server folder:
 
@@ -39,4 +39,4 @@ Note: For the backend REST API call to work, you will need an API Key for OMDB. 
 
 ### Author
 
-Michael Borromeo and Relayfy
+Michael Borromeo

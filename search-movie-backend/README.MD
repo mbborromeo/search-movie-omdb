@@ -1,4 +1,10 @@
+# search-movie-backend
+
 Node.js Server app
+
+This folder contains the back-end part (built in Node.js) of a Full-Stack project.
+
+It sends a request to OMDB API to get the movie data and poster image corresponding to user's query, which is returned to the front-end.
 
 ## Available Scripts
 

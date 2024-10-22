@@ -1,3 +1,11 @@
+# search-movie-ui
+
+React app
+
+This folder contains the client-side part (built in React) of a Full-Stack project.
+
+The user interface lets user's search for a movie by title. It sends a request to OMDB API to get the movie data and poster image, which happens in the back-end.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
