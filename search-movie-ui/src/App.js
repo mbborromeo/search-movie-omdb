@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import ListItems from './components/ListItems/ListItems';
 import MovieCards from './components/MovieCards/MovieCards';
@@ -27,10 +27,12 @@ function App() {
 
   // checking if HTML5 localStorage has an item with key "omdb-movie-app"
   useEffect(() => {
-    const updatedFavorites = JSON.parse(localStorage.getItem('omdb-movie-app'));
+    const locallyStoredFavourites = JSON.parse(
+      localStorage.getItem('omdb-movie-app')
+    );
 
-    if (updatedFavorites) {
-      setFavorites(updatedFavorites);
+    if (locallyStoredFavourites) {
+      setFavorites(locallyStoredFavourites);
     }
   }, []);
 
@@ -40,83 +42,92 @@ function App() {
   };
 
   // localStorage Resource: https://dev.to/willochs316/building-a-movie-app-with-react-and-ombd-api-a-step-by-step-guide-2p33#storing-api
-  const addFavoriteMovie = (movie) => {
-    // make shallow copy of favorites array if exists, else use an empty array
-    let copyOfFavourites = [...(favorites ? favorites : [])];
+  const addFavoriteMovie = useCallback(
+    (movie) => {
+      // make shallow copy of favorites array if exists, else use an empty array
+      let copyOfFavourites = [...(favorites ? favorites : [])];
 
-    const previouslySavedMovie = favorites?.find(
-      (element) => element.imdbID === movie.imdbID
-    );
+      const previouslySavedMovie = favorites?.find(
+        (element) => element.imdbID === movie.imdbID
+      );
 
-    if (!previouslySavedMovie) {
-      // add movie to start of favorites array
-      copyOfFavourites = [movie, ...copyOfFavourites];
-    }
+      if (!previouslySavedMovie) {
+        // add movie to start of favorites array
+        copyOfFavourites = [movie, ...copyOfFavourites];
+      }
 
-    // save to both React State and localStorage
-    setFavorites(copyOfFavourites);
-    saveToLocalStorage(copyOfFavourites);
-  };
+      // save to both React State and localStorage
+      setFavorites(copyOfFavourites);
+      saveToLocalStorage(copyOfFavourites);
+    },
+    [favorites]
+  );
 
-  const removeFavoriteMovie = (movie, ev) => {
-    // prevent click event going through to parent
-    if (ev && ev.stopPropagation) {
-      ev.stopPropagation();
-    }
+  const removeFavoriteMovie = useCallback(
+    (movie, ev) => {
+      // prevent click event going through to parent
+      if (ev && ev.stopPropagation) {
+        ev.stopPropagation();
+      }
 
-    const favouritesAmmended = favorites?.filter(
-      (favorite) => favorite.imdbID !== movie.imdbID
-    );
+      const favouritesAmmended = favorites?.filter(
+        (favorite) => favorite.imdbID !== movie.imdbID
+      );
 
-    // save to both React State and localStorage
-    setFavorites(favouritesAmmended);
-    saveToLocalStorage(favouritesAmmended);
-  };
+      // save to both React State and localStorage
+      setFavorites(favouritesAmmended);
+      saveToLocalStorage(favouritesAmmended);
+    },
+    [favorites]
+  );
 
-  const viewFavoriteMovie = (movie) => {
+  const viewFavoriteMovie = useCallback((movie) => {
     // load presentation area with movie details
     setViewMovieFromFavs(true);
     setData(movie);
-  };
+  }, []);
 
-  let handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
 
-    // clean up string
-    const titleNoSpaces = trimReplaceSpacesQuotes(title);
+      // clean up string
+      const titleNoSpaces = trimReplaceSpacesQuotes(title);
 
-    // check there is a valid search before submitting
-    if (titleNoSpaces && titleNoSpaces !== previousSearch) {
-      setMessage(`Searching for movie "${title}"...`);
-      setData({});
-      setLoading(true);
-      setViewMovieFromFavs(false);
+      // check there is a valid search before submitting
+      if (titleNoSpaces && titleNoSpaces !== previousSearch) {
+        setMessage(`Searching for movie "${title}"...`);
+        setData({});
+        setLoading(true);
+        setViewMovieFromFavs(false);
 
-      try {
-        // Connect with the relevant backend for live data.
-        fetch(`http://localhost:4000/searchMovie?title=${titleNoSpaces}`)
-          .then((res) => {
-            return res.json();
-          })
-          .then((data) => {
-            // no results found
-            if (data.Response === 'False') {
-              setMessage(`Results for "${title}": ${data.Error}`);
-            }
+        try {
+          // Connect with the relevant backend for live data.
+          fetch(`http://localhost:4000/searchMovie?title=${titleNoSpaces}`)
+            .then((res) => {
+              return res.json();
+            })
+            .then((data) => {
+              // no results found
+              if (data.Response === 'False') {
+                setMessage(`Results for "${title}": ${data.Error}`);
+              }
 
-            setData(data);
+              setData(data);
 
-            // store previous search and reset title
-            setPreviousSearch(titleNoSpaces);
-            setTitle('');
-            setLoading(false);
-          });
-      } catch (err) {
-        setMessage(`Error: "${err}"`);
-        console.log(err);
+              // store previous search and reset title
+              setPreviousSearch(titleNoSpaces);
+              setTitle('');
+              setLoading(false);
+            });
+        } catch (err) {
+          setMessage(`Error: "${err}"`);
+          console.log(err);
+        }
       }
-    }
-  };
+    },
+    [previousSearch, title]
+  );
 
   return (
     <div className="App">
@@ -161,8 +172,6 @@ function App() {
                     src={data.Poster}
                     alt={`Poster of ${data.Title}`}
                     id="poster"
-                    // width="100"
-                    // height="100"
                   />
                 </div>
               )}
@@ -252,7 +261,6 @@ function App() {
           <hr />
           <h2>Favourites</h2>
 
-          {/* list of favourite movies saved on localStorage & state */}
           {favorites.length > 0 && (
             <MovieCards
               movies={favorites}
